@@ -138,9 +138,9 @@ if [ "${SHOREONLY}" != "yes" ]; then
         COOL_FAC=$COOL_FAC COOL_STEPS=$COOL_STEPS CONCURRENT=$CONCURRENT \
         SHOREIP=$SHOREIP
     
-    nsplug meta_buri.bhv targ_buri.bhv -f VNAME=$VNAME1     \
+    nsplug meta_buri.bhv targ_buri.bhv -f VNAME=$VNAME2     \
 	START_POS=$START_POS2 SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \
-        HEIGHT=$HEIGHT1   WIDTH=$WIDTH1 LANE_WIDTH=$LANE_WIDTH1 DEGREES=$DEGREES1          
+        HEIGHT=$HEIGHT2   WIDTH=$WIDTH2 LANE_WIDTH=$LANE_WIDTH2 DEGREES=$DEGREES2          
     
 fi    
     

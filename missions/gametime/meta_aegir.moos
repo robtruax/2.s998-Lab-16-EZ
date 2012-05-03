@@ -40,3 +40,4 @@ Processconfig = ANTLER
 #include plug_pLogger.moos
 #include plug_pNodeReporter.moos
 #include plug_pBasicContactMgr.moos
+#include pug_uTimerScript
