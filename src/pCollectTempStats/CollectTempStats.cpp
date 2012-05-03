@@ -21,36 +21,10 @@ double wrapDeg(double deg) {
   return deg;
 }
 
-Measurement CollectTempStats::getMaxTemp() {
-  Measurement m = Measurement(0,0,0,0,0);
-  double max_t = -1;
-  for (int i = 0; i < _meas.size(); i++) {
-    if (_meas[i].temp > max_t) {
-      m = _meas[i];
-      max_t = _meas[i].temp;
-    }
-  }
-
-  return(m);
-}
-
-Measurement CollectTempStats::getMinTemp() {
-  Measurement m = Measurement(0,0,0,0,0);
-  double min_t = -1;
-  for (int i = 0; i < _meas.size(); i++) {
-    if (_meas[i].temp < min_t || min_t < 0) {
-      m = _meas[i];
-      min_t = _meas[i].temp;
-    }
-  }
-
-  return(m);
-}
-
 double CollectTempStats::getHotHeading() {
 
-  Measurement hot = getMaxTemp();
-  Measurement cold = getMinTemp();
+  Measurement hot = _meas.getMaxTemp();
+  Measurement cold = _meas.getMinTemp();
   double rad_heading = atan2(hot.y-cold.y,hot.x-cold.x);
   double deg_heading = rad_heading * 180.0 / PI - 90;
   deg_heading = wrapDeg(deg_heading);
@@ -59,18 +33,20 @@ double CollectTempStats::getHotHeading() {
 
 double CollectTempStats::getHotHeading2() {
 
-  Measurement hot = getMaxTemp();
-  Measurement cold = getMinTemp();
+  Measurement hot = _meas.getMaxTemp();
+  Measurement cold = _meas.getMinTemp();
 
   double deg_heading = -1.0;
 
   MatrixXd L = MatrixXd::Zero(3,3);
   MatrixXd R = MatrixXd::Zero(3,1);
 
-  for (int i = 0; i < _meas.size(); i++) {
-    double a = (hot.temp-_meas[i].temp)/(hot.temp-cold.temp)*2-1;
-    double x = _meas[i].x;
-    double y = _meas[i].y;
+  std::vector<Measurement> allMs = _meas.all();
+
+  for (int i = 0; i < allMs.size(); i++) {
+    double a = (hot.temp-allMs[i].temp)/(hot.temp-cold.temp)*2-1;
+    double x = allMs[i].x;
+    double y = allMs[i].y;
     L(0,0) += x*x;
     L(0,1) += x*y;
     L(0,2) += x;
@@ -173,10 +149,15 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
 	}
       }
 
-      Measurement m = Measurement(x, y, temp, MOOSTime(), 0);
-      _meas.push_back(m);
+      Measurement m = Measurement(x, y, temp, MOOSTime(), this->vname);
+      _meas.add(m);
+      this->sendFullState(_meas.toString());
     }
-
+    else if (msg.GetKey() == "FULL_STATE") {
+	// parse state
+	string allMeasurements = msg.GetString();
+	// read all of the measurements in
+    }
     else if (msg.GetKey() == "SURVEY_UNDERWAY") {
       if (msg.GetString() == "true" && _last_underway_state == false) {
 	// Reset stats for new run
@@ -194,6 +175,16 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
   }
 	
    return(true);
+}
+
+void CollectTempStats::sendFullState(string stateMsg) {
+    stringstream msg;
+    msg << "src_node=" << "archie"
+	<< ",dest_node=all,var_name=FULL_STATE,string_val=\"" 
+	<< stateMsg << "\"";
+    cout << "sent to other " << msg.str() << endl;
+    m_Comms.Notify("NODE_MESSAGE_LOCAL", msg.str());
+    usleep(200 * 1000);
 }
 
 //---------------------------------------------------------
@@ -217,10 +208,10 @@ bool CollectTempStats::OnConnectToServer()
 bool CollectTempStats::Iterate()
 {
   m_iterations++;
-  if (_meas.size() > 3 && m_iterations % 20 == 0) {
+  if (_meas.all().size() > 3 && m_iterations % 20 == 0) {
     m_Comms.Notify("HOT_HEADING", getHotHeading2());
-    m_Comms.Notify("MAX_TEMP", getMaxTemp().temp);
-    m_Comms.Notify("MIN_TEMP", getMinTemp().temp);
+    m_Comms.Notify("MAX_TEMP", _meas.getMaxTemp().temp);
+    m_Comms.Notify("MIN_TEMP", _meas.getMinTemp().temp);
   }
   return(true);
 }
@@ -264,6 +255,10 @@ bool CollectTempStats::OnStartUp()
       string param = stripBlankEnds(toupper(biteString(*p, '=')));
       string value = stripBlankEnds(*p);
       
+      if(param == "VEHICLENAME") {
+	  this->vname = value;
+      }
+
       if(param == "FOO") {
         //handled
       }
@@ -288,5 +283,6 @@ void CollectTempStats::RegisterVariables()
   m_Comms.Register("NAV_X", 0);
   m_Comms.Register("NAV_Y", 0);
   m_Comms.Register("SURVEY_UNDERWAY", 0);
+  m_Comms.Register("FULL_STATE", 0);
 }
 

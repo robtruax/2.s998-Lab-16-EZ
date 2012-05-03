@@ -8,28 +8,14 @@
 #ifndef CollectTempStats_HEADER
 #define CollectTempStats_HEADER
 
+#include "MeasurementList.h"
 #include "MOOSLib.h"
 #include "MBUtils.h"
 #include <math.h>
 #include <Eigen/Dense>
+#include <string>
 
-class Measurement {
-public:
-    double x, y, temp, timestamp;
-    int vehicleID;
-
-    Measurement() { };
-
-    Measurement(double _x, double _y, double _temp, double _timestamp, int _vehicleID) {
-	x = _x;
-	y = _y;
-	temp = _temp;
-	timestamp = _timestamp;
-	vehicleID = _vehicleID;
-    };
-
-    ~Measurement() { };
-};
+using namespace std;
 
 class CollectTempStats : public CMOOSApp
 {
@@ -50,19 +36,19 @@ class CollectTempStats : public CMOOSApp
 
    double getHotHeading();
    double getHotHeading2();
-   Measurement getMaxTemp();
-   Measurement getMinTemp();
    void publishDecisionLine(double,double,double);
+   void sendFullState(string state);
 
  private: // Configuration variables
 
  private: // State variables
    unsigned int m_iterations;
    double       m_timewarp;
+   string vname;
 
    bool _last_underway_state;
 
-   std::vector<Measurement> _meas;
+   MeasurementList _meas;
 };
 
 #endif 
