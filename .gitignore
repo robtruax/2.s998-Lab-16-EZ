@@ -6,6 +6,7 @@ bin/*
 targ*
 latex/
 LOG*
+.LastOpenedMOOSLogDirectory
 
 # Generated Files
 missions/lab14/*.txt
