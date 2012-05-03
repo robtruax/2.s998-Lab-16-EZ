@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# added by robtruax to avoid headaches
+if [ ! -d "build" ]; then
+    # Control will enter here if $DIRECTORY doesn't exist
+    mkdir build
+fi
+
 PWD=`pwd`
 BUILD_DIR=./build
 HELP="no"
