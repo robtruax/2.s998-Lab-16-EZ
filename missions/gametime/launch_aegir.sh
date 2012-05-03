@@ -47,8 +47,8 @@ for ARGI; do
 	HELP="yes"
 	UNDEFINED_ARG=""
     fi
-    if [ "${ARGI}" = "--shore" -o "${ARGI}" = "-s" ] ; then
-	SHOREONLY="yes"
+    if [ "${ARGI:0:7}" = "--shore" ] ; then
+	SHOREIP="${ARGI#--shore=*}"
 	UNDEFINED_ARG=""
     fi
     # Handle Warp shortcut
@@ -111,10 +111,10 @@ fi
 #-------------------------------------------------------
 
 GROUP12="GROUP12"
-VNAME1="henry"  # The first vehicle Community
+VNAME1="aegir"  # The first vehicle Community
 VPORT1="9201"
 LPORT1="9301"
-VNAME2="gilda"  # The second vehicle Community
+VNAME2="buri"  # The second vehicle Community
 VPORT2="9202"
 LPORT2="9302"
 # gateway buoy
@@ -132,26 +132,16 @@ START_POS3="90,-50"        # Gateway configurations
 
 if [ "${SHOREONLY}" != "yes" ]; then
 
-    nsplug meta_vehicle.moos targ_henry.moos -f WARP=$WARP      \
+    nsplug meta_aegir.moos targ_aegir.moos -f WARP=$WARP      \
 	VNAME=$VNAME1  VPORT=$VPORT1  LPORT=$LPORT1             \
         GROUP=$GROUP12  START_POS=$START_POS1  KEY=$KEY \
-        COOL_FAC=$COOL_FAC COOL_STEPS=$COOL_STEPS CONCURRENT=$CONCURRENT
+        COOL_FAC=$COOL_FAC COOL_STEPS=$COOL_STEPS CONCURRENT=$CONCURRENT \
+        SHOREIP=$SHOREIP
     
-    nsplug meta_vehicle.bhv targ_henry.bhv -f VNAME=$VNAME1     \
+    nsplug meta_aegir.bhv targ_aegir.bhv -f VNAME=$VNAME1     \
 	START_POS=$START_POS1 SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \
         HEIGHT=$HEIGHT1   WIDTH=$WIDTH1 LANE_WIDTH=$LANE_WIDTH1 DEGREES=$DEGREES1          
-    if [ "${TWOVEHICLES}" = "yes" ]; then
-
-	nsplug meta_vehicle.moos targ_gilda.moos -f WARP=$WARP      \
-	    VNAME=$VNAME2  VPORT=$VPORT2  LPORT=$LPORT2             \
-            GROUP=$GROUP12  START_POS=$START_POS2  KEY=$KEY \
-            COOL_FAC=$COOL_FAC COOL_STEPS=$COOL_STEPS CONCURRENT=$CONCURRENT
-	
-	nsplug meta_vehicle.bhv targ_gilda.bhv -f VNAME=$VNAME2     \
-	    START_POS=$START_POS2 SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \
-            HEIGHT=$HEIGHT2   WIDTH=$WIDTH2 LANE_WIDTH=$LANE_WIDTH2 DEGREES=$DEGREES2      
-	
-    fi    
+    
 fi    
 
 # gateway buoy
@@ -174,23 +164,9 @@ fi
 
 if [ "${SHOREONLY}" != "yes" ]; then
     printf "Launching $VNAME1 MOOS Community (WARP=%s) \n" $WARP
-    pAntler targ_henry.moos >& /dev/null &
+    pAntler targ_aegir.moos >& /dev/null &
     sleep 0.1
-    if [ "${TWOVEHICLES}" = "yes" ]; then
-	printf "Launching $VNAME2 MOOS Community (WARP=%s) \n" $WARP
-	pAntler targ_gilda.moos >& /dev/null &
-	sleep 0.1
-    fi
 fi
-
-# printf "Launching $VNAME3 MOOS Community (WARP=%s) \n" $WARP
-# pAntler targ_gateway.moos >& /dev/null &
-#sleep 0.1
-
-
-printf "Launching $SNAME MOOS Community (WARP=%s) \n"  $WARP
-pAntler targ_shoreside.moos >& /dev/null &
-printf "Done \n"
 
 #-------------------------------------------------------
 #  Part 4: Exiting and/or killing the simulation

@@ -130,35 +130,7 @@ START_POS1="50,0"         # Vehicle 1 Behavior configurations
 START_POS2="150,-20"        # Vehicle 2 Behavior configurations
 START_POS3="90,-50"        # Gateway configurations
 
-if [ "${SHOREONLY}" != "yes" ]; then
 
-    nsplug meta_vehicle.moos targ_henry.moos -f WARP=$WARP      \
-	VNAME=$VNAME1  VPORT=$VPORT1  LPORT=$LPORT1             \
-        GROUP=$GROUP12  START_POS=$START_POS1  KEY=$KEY \
-        COOL_FAC=$COOL_FAC COOL_STEPS=$COOL_STEPS CONCURRENT=$CONCURRENT
-    
-    nsplug meta_vehicle.bhv targ_henry.bhv -f VNAME=$VNAME1     \
-	START_POS=$START_POS1 SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \
-        HEIGHT=$HEIGHT1   WIDTH=$WIDTH1 LANE_WIDTH=$LANE_WIDTH1 DEGREES=$DEGREES1          
-    if [ "${TWOVEHICLES}" = "yes" ]; then
-
-	nsplug meta_vehicle.moos targ_gilda.moos -f WARP=$WARP      \
-	    VNAME=$VNAME2  VPORT=$VPORT2  LPORT=$LPORT2             \
-            GROUP=$GROUP12  START_POS=$START_POS2  KEY=$KEY \
-            COOL_FAC=$COOL_FAC COOL_STEPS=$COOL_STEPS CONCURRENT=$CONCURRENT
-	
-	nsplug meta_vehicle.bhv targ_gilda.bhv -f VNAME=$VNAME2     \
-	    START_POS=$START_POS2 SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \
-            HEIGHT=$HEIGHT2   WIDTH=$WIDTH2 LANE_WIDTH=$LANE_WIDTH2 DEGREES=$DEGREES2      
-	
-    fi    
-fi    
-
-# gateway buoy
-
-    nsplug meta_gateway.moos targ_gateway.moos -f WARP=$WARP      \
-	VNAME=$VNAME3  VPORT=$VPORT3  LPORT=$LPORT3             \
-        GROUP=$GROUP12  START_POS=$START_POS3  KEY=$KEY 
     
 nsplug meta_shoreside.moos targ_shoreside.moos -f WARP=$WARP    \
     SLPORT=$SLPORT  SPORT=$SPORT  SNAME=$SNAME
@@ -171,21 +143,6 @@ fi
 #-------------------------------------------------------
 #  Part 3: Launch the processes
 #-------------------------------------------------------
-
-if [ "${SHOREONLY}" != "yes" ]; then
-    printf "Launching $VNAME1 MOOS Community (WARP=%s) \n" $WARP
-    pAntler targ_henry.moos >& /dev/null &
-    sleep 0.1
-    if [ "${TWOVEHICLES}" = "yes" ]; then
-	printf "Launching $VNAME2 MOOS Community (WARP=%s) \n" $WARP
-	pAntler targ_gilda.moos >& /dev/null &
-	sleep 0.1
-    fi
-fi
-
-# printf "Launching $VNAME3 MOOS Community (WARP=%s) \n" $WARP
-# pAntler targ_gateway.moos >& /dev/null &
-#sleep 0.1
 
 
 printf "Launching $SNAME MOOS Community (WARP=%s) \n"  $WARP
