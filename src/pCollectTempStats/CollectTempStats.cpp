@@ -98,8 +98,18 @@ void CollectTempStats::publishDecisionLine(double vx, double vy, double b) {
 
 CollectTempStats::CollectTempStats()
 {
-  m_iterations = 0;
-  m_timewarp   = 1;
+    cout << "HIHIHI" << endl;
+    MeasurementList ml;
+    ml.add(Measurement(0, 0, 3823.0, 0, "abc"));
+    ml.add(Measurement(1, 2, 0, 0, "helloooo"));
+    ml.add(Measurement(32.8, 32.232, 0, 0, "helloooo"));
+    ml.add(Measurement(328.238, 0, 3283.328, 32832082380.338, "abc"));
+    ml.add(Measurement(-330.302, -20, -2382, 3282082.238, "abc"));
+    std::cout << ml.toString() << endl;
+    cout << "MeasurementList test passed" << endl;
+
+    m_iterations = 0;
+    m_timewarp   = 1;
 }
 
 //---------------------------------------------------------

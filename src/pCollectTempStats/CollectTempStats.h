@@ -20,7 +20,7 @@ using namespace std;
 class CollectTempStats : public CMOOSApp
 {
  public:
-   CollectTempStats();
+    CollectTempStats();
    ~CollectTempStats();
 
  protected:

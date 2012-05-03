@@ -11,17 +11,26 @@
 #include "Measurement.h"
 #include "MOOSLib.h"
 #include "MBUtils.h"
-#include <math.h>
+#include <iterator>
+#include <iostream>
 #include <string>
+#include <math.h>
 
 class MeasurementList {
 public:
     std::string toString() {
-	
+	std::stringstream s;
+	for (int i = 0; i < _meas.size(); i++) {
+	    s << _meas[i].toString() << "@";
+	}
+	return s.str();
     };
 
-    void fromString() {
-	
+    void fromString(std::string encodedMeasurementList) {
+	std::vector<std::string> svector = parseString(encodedMeasurementList, '@');
+	for (int i = 0; i < svector.size(); i++) {
+	    this->add(Measurement(svector[i]));
+	}
     };
 
     void integrate(MeasurementList other) {
@@ -33,7 +42,7 @@ public:
     };
 
     Measurement getMaxTemp() {
-	Measurement m = Measurement(0,0,0,0,0);
+	Measurement m = Measurement(0,0,0);
 	double max_t = -1;
 	for (int i = 0; i < _meas.size(); i++) {
 	    if (_meas[i].temp > max_t) {
@@ -45,7 +54,7 @@ public:
     }
 
     Measurement getMinTemp() {
-	Measurement m = Measurement(0,0,0,0,0);
+	Measurement m = Measurement(0,0,0);
 	double min_t = -1;
 	for (int i = 0; i < _meas.size(); i++) {
 	    if (_meas[i].temp < min_t || min_t < 0) {
@@ -62,7 +71,12 @@ public:
     };
 
     void add(Measurement m) {
-	// hi
+	for (int i = 0; i < _meas.size(); i++) {
+	    if (m.timestamp == _meas[i].timestamp && m.vehicleID == _meas[i].vehicleID) {
+		return;
+	    }
+	}
+	_meas.push_back(m);
     };
 
 private:
