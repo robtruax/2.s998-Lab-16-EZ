@@ -1,0 +1,9 @@
+//------------------------------------------------
+// pCollectTempStats config block
+
+ProcessConfig = pCollectTempStats
+{
+   AppTick   = 4
+   CommsTick = 4
+}
+
