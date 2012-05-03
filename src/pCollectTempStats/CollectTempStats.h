@@ -9,26 +9,26 @@
 #define CollectTempStats_HEADER
 
 #include "MOOSLib.h"
+#include "MBUtils.h"
 #include <math.h>
 #include <Eigen/Dense>
 
 class Measurement {
- public:
-  double x,y,temp;
+public:
+    double x, y, temp, timestamp;
+    int vehicleID;
 
-  Measurement(){
+    Measurement() { };
 
-  };
+    Measurement(double _x, double _y, double _temp, double _timestamp, int _vehicleID) {
+	x = _x;
+	y = _y;
+	temp = _temp;
+	timestamp = _timestamp;
+	vehicleID = _vehicleID;
+    };
 
-  Measurement(double _x, double _y, double _temp) {
-    x = _x;
-    y = _y;
-    temp = _temp;
-  };
-
-  ~Measurement() {
-
-  };
+    ~Measurement() { };
 };
 
 class CollectTempStats : public CMOOSApp

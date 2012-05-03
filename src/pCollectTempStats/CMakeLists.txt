@@ -12,13 +12,13 @@ SET(SRC
 )
 
 include_directories(/usr/include/eigen3)
+include_directories(/opt/local/include/eigen3)
 
 ADD_EXECUTABLE(pCollectTempStats ${SRC})
 
 TARGET_LINK_LIBRARIES(pCollectTempStats
+   mbutil
    MOOS
    MOOSGen
-   mbutil
    m
    pthread)
-

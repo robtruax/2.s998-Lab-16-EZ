@@ -6,7 +6,6 @@
 /************************************************************/
 
 #include <iterator>
-#include "MBUtils.h"
 #include "CollectTempStats.h"
 
 using namespace std;
@@ -23,7 +22,7 @@ double wrapDeg(double deg) {
 }
 
 Measurement CollectTempStats::getMaxTemp() {
-  Measurement m = Measurement(0,0,0);
+  Measurement m = Measurement(0,0,0,0,0);
   double max_t = -1;
   for (int i = 0; i < _meas.size(); i++) {
     if (_meas[i].temp > max_t) {
@@ -36,7 +35,7 @@ Measurement CollectTempStats::getMaxTemp() {
 }
 
 Measurement CollectTempStats::getMinTemp() {
-  Measurement m = Measurement(0,0,0);
+  Measurement m = Measurement(0,0,0,0,0);
   double min_t = -1;
   for (int i = 0; i < _meas.size(); i++) {
     if (_meas[i].temp < min_t || min_t < 0) {
@@ -174,10 +173,7 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
 	}
       }
 
-      Measurement m;
-      m.x = x;
-      m.y = y;
-      m.temp = temp;
+      Measurement m = Measurement(x, y, temp, MOOSTime(), 0);
       _meas.push_back(m);
     }
 
