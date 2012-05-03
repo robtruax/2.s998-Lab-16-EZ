@@ -23,6 +23,20 @@ set MODE = SURVEYING {
   RETURN = false
 } 
 
+//---------------------------------------------
+Behavior = BHV_OpRegion
+{
+  name = bhv_opregion
+  
+  polygon = label,opregion : -50,-40 : 100,20 : 180,20 : 180,-100 : -50,-200
+
+  trigger_entry_time = 10
+  trigger_exit_time = 1
+
+  visual_hints = edge_size=1
+
+}
+
 
 //----------------------------------------------
 Behavior = BHV_Waypoint
