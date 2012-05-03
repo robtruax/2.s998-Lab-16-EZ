@@ -133,13 +133,13 @@ START_POS3="90,-50"        # Gateway configurations
 if [ "${SHOREONLY}" != "yes" ]; then
 
     nsplug meta_buri.moos targ_buri.moos -f WARP=$WARP      \
-	VNAME=$VNAME1  VPORT=$VPORT1  LPORT=$LPORT1             \
-        GROUP=$GROUP12  START_POS=$START_POS1  KEY=$KEY \
+	VNAME=$VNAME2  VPORT=$VPORT2  LPORT=$LPORT2             \
+        GROUP=$GROUP12  START_POS=$START_POS2  KEY=$KEY \
         COOL_FAC=$COOL_FAC COOL_STEPS=$COOL_STEPS CONCURRENT=$CONCURRENT \
         SHOREIP=$SHOREIP
     
     nsplug meta_buri.bhv targ_buri.bhv -f VNAME=$VNAME1     \
-	START_POS=$START_POS1 SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \
+	START_POS=$START_POS2 SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \
         HEIGHT=$HEIGHT1   WIDTH=$WIDTH1 LANE_WIDTH=$LANE_WIDTH1 DEGREES=$DEGREES1          
     
 fi    
