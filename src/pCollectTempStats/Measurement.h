@@ -51,7 +51,7 @@ public:
     
     void fromString(std::string encodedMeasurement) {
 	std::vector<std::string> svector = parseString(encodedMeasurement, ',');
-	x = atoi(svector[0].c_str());
+	x = atof(svector[0].c_str());
 	y = atof(svector[1].c_str());
 	temp = atof(svector[2].c_str());
 	timestamp = atof(svector[3].c_str());
