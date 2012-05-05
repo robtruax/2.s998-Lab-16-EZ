@@ -220,6 +220,7 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
       if (msg.GetString() == "true" && _last_underway_state == false) {
 	// Reset stats for new run
 	clearMeasurements();
+	_otherIndex = 0;
       }
 
       if (msg.GetString() == "true") {
@@ -288,8 +289,12 @@ bool CollectTempStats::Iterate()
       +",temp=" + doubleToString(m.temp,2);
 
     m_Comms.Notify("UCTD_MSMNT_REPORT",report);
+    cout << "Sending Report: " << report << endl;
     _otherIndex++;
   }
+
+  cout << "Measurement list sizes:" << _meas._meas.size() 
+       << ", " << _otherMeas._meas.size() << endl;
 
   return(true);
 }
