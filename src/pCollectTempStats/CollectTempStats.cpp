@@ -26,6 +26,7 @@ double CollectTempStats::getHotHeading() {
   Measurement hot = _meas.getMaxTemp();
   Measurement cold = _meas.getMinTemp();
   double rad_heading = atan2(hot.y-cold.y,hot.x-cold.x);
+  // TODO: Is this right???
   double deg_heading = rad_heading * 180.0 / PI - 90;
   deg_heading = wrapDeg(deg_heading);
   return(deg_heading);
@@ -61,6 +62,26 @@ double CollectTempStats::getHotHeading2() {
     R(2,0) += a;
   }
 
+  // Do same for other ship
+  allMs = _otherMeas.all();
+  for (int i = 0; i < allMs.size(); i++) {
+    double a = (hot.temp-allMs[i].temp)/(hot.temp-cold.temp)*2-1;
+    double x = allMs[i].x;
+    double y = allMs[i].y;
+    L(0,0) += x*x;
+    L(0,1) += x*y;
+    L(0,2) += x;
+    L(1,0) = L(0,1);
+    L(1,1) += y*y;
+    L(1,2) += y;
+    L(2,0) = L(0,2);
+    L(2,1) = L(1,2);
+    L(2,2) += 1;
+    R(0,0) += x*a;
+    R(1,0) += y*a;
+    R(2,0) += a;
+  }
+
   MatrixXd theta = L.fullPivLu().solve(R);
   double tx = theta(0,0);
   double ty = theta(1,0);
@@ -70,6 +91,7 @@ double CollectTempStats::getHotHeading2() {
 
   deg_heading = atan2(-ty,-tx);
   deg_heading = deg_heading*180/PI;
+  // TODO: Is this right???
   deg_heading = wrapDeg(-deg_heading+90);
 
   return(deg_heading);
@@ -93,7 +115,7 @@ void CollectTempStats::publishDecisionLine(double vx, double vy, double b) {
   m_Comms.Notify("VIEW_SEGLIST",s.str());
 }
 
-bool runTester() {
+bool CollectTempStats::runTester() {
   cout << "HIHIHI" << endl;
   MeasurementList ml;
   ml.add(Measurement(0, 0, 3823.0, 0, "abc"));
@@ -151,7 +173,8 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
 
     if (msg.GetKey() == "UCTD_MSMNT_REPORT") {
       // Process
-      double x,y,temp;
+      double x,y,temp,utctime;
+      string vname;
       vector<string> inmsg = parseString(msg.GetString(), ",");
       for (int i = 0; i < inmsg.size(); i++) {
 	vector<string> items = parseString(inmsg[i],"=");
@@ -165,12 +188,24 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
 	  else if (items[0] == "y") {
 	    y = atof(items[1].c_str());
 	  }
+	  else if (items[0] == "utc") {
+	    utctime = atof(items[1].c_str());
+	  }
+	  else if (items[0] == "vname") {
+	    vname = items[1];
+	  }
 	}
       }
 
-      Measurement m = Measurement(x, y, temp, MOOSTime(), this->vname);
-      _meas.add(m);
-      this->sendFullState(_meas.toString());
+      // check if this was orginally for this vehicle.  If not,
+      // don't incorporate into ownship measurements to avoid 
+      // echoing.  pFrontEstimator will read ECTD_MSMNT too, 
+      // so we don't have to worry about passing it along.
+      if (vname == _vname) {
+	Measurement m = Measurement(x, y, temp, utctime, vname);
+	_meas.add(m);
+	this->sendFullState(_meas.toString());
+      }
     }
     else if (msg.GetKey() == "FULL_STATE") {
 	// parse state
@@ -201,7 +236,7 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
 
 void CollectTempStats::sendFullState(string stateMsg) {
     stringstream msg;
-    msg << "src_node=" << vname
+    msg << "src_node=" << _vname
 	<< ",dest_node=all,var_name=FULL_STATE,string_val=\"" 
 	<< stateMsg << "\"";
     cout << "sent to other " << msg.str() << endl;
@@ -244,8 +279,16 @@ bool CollectTempStats::Iterate()
     // we have received additional measurements since last time
     while (_otherIndex < _otherMeas._meas.size()) {
       // Publish a fake measurement report
-      stringstream s;
-      
+      // Format stolen from CTD_Sensor_Model
+      Measurement m = _otherMeas._meas[_otherIndex];
+      string report = "vname=" + m.vehicleID 
+	+ ",utc=" + doubleToString(m.timestamp,1)
+	+",x=" + doubleToString(m.x,1)
+	+",y=" + doubleToString(m.y,1)
+	+",temp=" + doubleToString(m.temp,2);
+
+      m_Comms.Notify("UCTD_MSMNT_REPORT",report);
+      _otherIndex++;
     }
   }
 
@@ -261,7 +304,7 @@ bool CollectTempStats::OnStartUp()
   // Initializations
   _last_underway_state = false;
   _otherIndex = 0;
-  vname = "LARRY_THE_CABLE_GUY";
+  _vname = "LARRY_THE_CABLE_GUY";
 
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
@@ -273,7 +316,7 @@ bool CollectTempStats::OnStartUp()
       string value = stripBlankEnds(*p);
       
       if(param == "VEHICLENAME") {
-	  this->vname = value;
+	  this->_vname = value;
       }
 
       if(param == "FOO") {

@@ -38,19 +38,21 @@ class CollectTempStats : public CMOOSApp
    double getHotHeading2();
    void publishDecisionLine(double,double,double);
    void sendFullState(string state);
+   bool runTester();
 
  private: // Configuration variables
 
  private: // State variables
    unsigned int m_iterations;
    double       m_timewarp;
-   string vname;
-   int _otherIndex;
+   string _vname;
+   int _otherIndex; // next index in other_meas to publish
 
    bool _last_underway_state;
 
    MeasurementList _meas; // copy of ownship current full state
    MeasurementList _otherMeas; // copy of full state of other vehicle
+
 };
 
 #endif 
