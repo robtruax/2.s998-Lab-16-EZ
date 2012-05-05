@@ -164,9 +164,9 @@ ProcessConfig = pMarineViewer
   CommsTick  = 4
 
   TIFF_FILE            = AerialMIT.tif
-  set_pan_x            = -90
-  set_pan_y            = -280
-  zoom                 = 0.65
+  set_pan_x            = -20
+  set_pan_y            = 85
+  zoom                 = 2.5
   vehicles_shape_scale = 1.5
   vehicles_name_viewable = names
 

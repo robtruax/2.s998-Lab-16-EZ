@@ -289,12 +289,12 @@ bool CollectTempStats::Iterate()
       +",temp=" + doubleToString(m.temp,2);
 
     m_Comms.Notify("UCTD_MSMNT_REPORT",report);
-    cout << "Sending Report: " << report << endl;
+    //    cout << "Sending Report: " << report << endl;
     _otherIndex++;
   }
 
-  cout << "Measurement list sizes:" << _meas._meas.size() 
-       << ", " << _otherMeas._meas.size() << endl;
+  //  cout << "Measurement list sizes:" << _meas._meas.size() 
+  //       << ", " << _otherMeas._meas.size() << endl;
 
   return(true);
 }
