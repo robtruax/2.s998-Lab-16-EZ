@@ -127,7 +127,7 @@ SPORT="9000"
 SLPORT="9200"
 
 START_POS1="50,0"         # Vehicle 1 Behavior configurations
-START_POS2="150,-20"        # Vehicle 2 Behavior configurations
+START_POS2="60,-10"        # Vehicle 2 Behavior configurations
 START_POS3="90,-50"        # Gateway configurations
 
 if [ "${SHOREONLY}" != "yes" ]; then

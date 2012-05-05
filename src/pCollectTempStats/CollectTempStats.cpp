@@ -111,7 +111,7 @@ void CollectTempStats::publishDecisionLine(double vx, double vy, double b) {
   double y2 = centery-vx/len*200;
 
   stringstream s;
-  s << "label,decision_line:vertex_color,1,1,0:edge_size,1.0:vertex_size,2.0:" << x1 << "," << y1 << ":" << x2 << "," << y2;
+  s << "label,decision_line_" << _vname << ":vertex_color,1,1,0:edge_size,1.0:vertex_size,2.0:" << x1 << "," << y1 << ":" << x2 << "," << y2;
   m_Comms.Notify("VIEW_SEGLIST",s.str());
 }
 
@@ -212,6 +212,7 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
 	string allMeasurements = msg.GetString();
 	MeasurementList list;
 	// read all of the measurements in
+	// TODO: TOO SLOW!
 	list.fromString(allMeasurements);
 	_otherMeas = list;
     }
@@ -239,9 +240,9 @@ void CollectTempStats::sendFullState(string stateMsg) {
     msg << "src_node=" << _vname
 	<< ",dest_node=all,var_name=FULL_STATE,string_val=\"" 
 	<< stateMsg << "\"";
-    cout << "sent to other " << msg.str() << endl;
+    //cout << "sent to other " << msg.str() << endl;
     m_Comms.Notify("NODE_MESSAGE_LOCAL", msg.str());
-    usleep(200 * 1000);
+    //usleep(200 * 1000);
 }
 
 //---------------------------------------------------------
@@ -275,21 +276,19 @@ bool CollectTempStats::Iterate()
   // pFrontEstimator is stupid!  Will accept copies of identical
   // measurements!  We need to be smart here!
 
-  if (_otherMeas._meas.size() > _otherIndex) {
-    // we have received additional measurements since last time
-    while (_otherIndex < _otherMeas._meas.size()) {
-      // Publish a fake measurement report
-      // Format stolen from CTD_Sensor_Model
-      Measurement m = _otherMeas._meas[_otherIndex];
-      string report = "vname=" + m.vehicleID 
-	+ ",utc=" + doubleToString(m.timestamp,1)
-	+",x=" + doubleToString(m.x,1)
-	+",y=" + doubleToString(m.y,1)
-	+",temp=" + doubleToString(m.temp,2);
+  // we have received additional measurements since last time
+  while (_otherIndex < _otherMeas._meas.size()) {
+    // Publish a fake measurement report
+    // Format stolen from CTD_Sensor_Model
+    Measurement m = _otherMeas._meas[_otherIndex];
+    string report = "vname=" + m.vehicleID 
+      + ",utc=" + doubleToString(m.timestamp,1)
+      +",x=" + doubleToString(m.x,1)
+      +",y=" + doubleToString(m.y,1)
+      +",temp=" + doubleToString(m.temp,2);
 
-      m_Comms.Notify("UCTD_MSMNT_REPORT",report);
-      _otherIndex++;
-    }
+    m_Comms.Notify("UCTD_MSMNT_REPORT",report);
+    _otherIndex++;
   }
 
   return(true);

@@ -20,11 +20,12 @@ Processconfig = ANTLER
   Run = pMarinePID         @ NewConsole = false
   Run = pHelmIvP           @ NewConsole = false
   Run = pBasicContactMgr   @ NewConsole = false
-  Run = pHostInfo          @ NewConsole = true,XConfig=4
+  Run = pHostInfo          @ NewConsole = false,XConfig=4
   Run = pFrontEstimate     @ NewConsole = true,XConfig=4
   Run = uFldNodeBroker     @ NewConsole = false
   Run = uFldMessageHandler @ NewConsole = false
-  Run = uTimerScript       @ NewConsole = false
+//  Run = uTimerScript       @ NewConsole = false
+  Run = pCollectTempStats  @ NewConsole = true
 
   4 = -geometry,80x10+20+950,-bg,purple,-fg,white
 }
@@ -41,3 +42,4 @@ Processconfig = ANTLER
 #include plug_pNodeReporter.moos
 #include plug_pBasicContactMgr.moos
 #include plug_uTimerScript.moos
+#include plug_pCollectTempStats.moos

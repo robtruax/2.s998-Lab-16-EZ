@@ -32,6 +32,7 @@ class CollectTempStats : public CMOOSApp
 
    void clearMeasurements() {
      _meas.clear();
+     _otherMeas.clear();
    };
 
    double getHotHeading();
