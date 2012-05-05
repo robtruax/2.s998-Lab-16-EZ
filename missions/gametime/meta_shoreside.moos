@@ -17,12 +17,12 @@ Processconfig = ANTLER
   Run = pMOOSBridge     @ NewConsole = false
   Run = pMarineViewer   @ NewConsole = false
   Run = pLogger         @ NewConsole = false
-  Run = pHostInfo       @ NewConsole = true
-  Run = uFldShoreBroker @ NewConsole = true,XConfig=3
-  Run = uFldNodeComms   @ NewConsole = true,XConfig=2
+  Run = pHostInfo       @ NewConsole = false
+  Run = uFldShoreBroker @ NewConsole = false,XConfig=3
+  Run = uFldNodeComms   @ NewConsole = false,XConfig=2
 //  Run = uFldScope       @ NewConsole = false
   Run = uFldCTDSensor  @ NewConsole = true,XConfig=1
-  Run = pFrontGridRender  @ NewConsole = true,XConfig=4
+  Run = pFrontGridRender  @ NewConsole = false,XConfig=4
 
   1 = -geometry,80x30+0+0,-bg,lightgreen,-fg,brown
   2 = -geometry,80x15+0+460,-bg,green,-fg,black

@@ -22,13 +22,13 @@ public:
     std::string toString() {
 	std::stringstream s;
 	for (int i = 0; i < _meas.size(); i++) {
-	    s << _meas[i].toString() << "@";
+	    s << _meas[i].toString() << ":";
 	}
 	return s.str();
     };
 
     void fromString(std::string encodedMeasurementList) {
-	std::vector<std::string> svector = parseString(encodedMeasurementList, '@');
+	std::vector<std::string> svector = parseString(encodedMeasurementList, ':');
 	for (int i = 0; i < svector.size(); i++) {
 	    this->add(Measurement(svector[i]));
 	}

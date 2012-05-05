@@ -40,22 +40,37 @@ public:
     }
 
     std::string toString() {
-	std::stringstream s;
-	s << this->x << "," 
-	  << this->y << "," 
-	  << this->temp << "," 
-	  << this->timestamp << "," 
-	  << this->vehicleID;
-	return s.str();
+      // Format stolen from CTD_Sensor_Model
+      std::string out = "vname=" + this->vehicleID 
+	+ ",utc=" + doubleToString(this->timestamp,1)
+	+",x=" + doubleToString(this->x,1)
+	+",y=" + doubleToString(this->y,1)
+	+",temp=" + doubleToString(this->temp,2);
+	return out;
     }
     
     void fromString(std::string encodedMeasurement) {
-	std::vector<std::string> svector = parseString(encodedMeasurement, ',');
-	x = atof(svector[0].c_str());
-	y = atof(svector[1].c_str());
-	temp = atof(svector[2].c_str());
-	timestamp = atof(svector[3].c_str());
-	vehicleID  = svector[4];
+      std::vector<std::string> inmsg = parseString(encodedMeasurement, ",");
+      for (int i = 0; i < inmsg.size(); i++) {
+	std::vector<std::string> items = parseString(inmsg[i],"=");
+	if (items.size() == 2) {
+	  if (items[0] == "temp") {
+	    temp = atof(items[1].c_str());
+	  }
+	  else if (items[0] == "x") {
+	    x = atof(items[1].c_str());
+	  }
+	  else if (items[0] == "y") {
+	    y = atof(items[1].c_str());
+	  }
+	  else if (items[0] == "utc") {
+	    timestamp = atof(items[1].c_str());
+	  }
+	  else if (items[0] == "vname") {
+	    vehicleID = items[1];
+	  }
+	}
+      }
     }
 
 public:
