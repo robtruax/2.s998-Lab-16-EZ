@@ -45,10 +45,12 @@ class CollectTempStats : public CMOOSApp
    unsigned int m_iterations;
    double       m_timewarp;
    string vname;
+   int _otherIndex;
 
    bool _last_underway_state;
 
-   MeasurementList _meas;
+   MeasurementList _meas; // copy of ownship current full state
+   MeasurementList _otherMeas; // copy of full state of other vehicle
 };
 
 #endif 

@@ -175,7 +175,10 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
     else if (msg.GetKey() == "FULL_STATE") {
 	// parse state
 	string allMeasurements = msg.GetString();
+	MeasurementList list;
 	// read all of the measurements in
+	list.fromString(allMeasurements);
+	_otherMeas = list;
     }
     else if (msg.GetKey() == "SURVEY_UNDERWAY") {
       if (msg.GetString() == "true" && _last_underway_state == false) {
@@ -198,7 +201,7 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
 
 void CollectTempStats::sendFullState(string stateMsg) {
     stringstream msg;
-    msg << "src_node=" << "archie"
+    msg << "src_node=" << vname
 	<< ",dest_node=all,var_name=FULL_STATE,string_val=\"" 
 	<< stateMsg << "\"";
     cout << "sent to other " << msg.str() << endl;
@@ -232,6 +235,20 @@ bool CollectTempStats::Iterate()
     m_Comms.Notify("MAX_TEMP", _meas.getMaxTemp().temp);
     m_Comms.Notify("MIN_TEMP", _meas.getMinTemp().temp);
   }
+
+  // CAREFUL!!!  **********************************************
+  // pFrontEstimator is stupid!  Will accept copies of identical
+  // measurements!  We need to be smart here!
+
+  if (_otherMeas._meas.size() > _otherIndex) {
+    // we have received additional measurements since last time
+    while (_otherIndex < _otherMeas._meas.size()) {
+      // Publish a fake measurement report
+      stringstream s;
+      
+    }
+  }
+
   return(true);
 }
 
@@ -241,29 +258,10 @@ bool CollectTempStats::Iterate()
 
 bool CollectTempStats::OnStartUp()
 {
-
-  // // Eigen test
-  // MatrixXd m(2,2);
-  // m(0,0) = 1;
-  // m(1,0) = 2;
-  // m(0,1) = 3;
-  // m(1,1) = 4;
-
-  // MatrixXd b(2,1);
-  // b(0,0) = 5;
-  // b(1,0) = 6;
-
-  // cout << "m:\n" << m << endl;
-  // cout << "b:\n" << b << endl;
-
-  // MatrixXd ans(2,1);
-  // ans = m.colPivHouseholderQr().solve(b);
-
-  // cout << "ans:\n" << ans << endl;
-
-
   // Initializations
   _last_underway_state = false;
+  _otherIndex = 0;
+  vname = "LARRY_THE_CABLE_GUY";
 
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
@@ -281,7 +279,8 @@ bool CollectTempStats::OnStartUp()
       if(param == "FOO") {
         //handled
       }
-      else if(param == "BAR") {
+      else
+ if(param == "BAR") {
         //handled
       }
     }

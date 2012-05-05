@@ -79,7 +79,9 @@ public:
 	_meas.push_back(m);
     };
 
-private:
+
+    //private:
+ public:
     std::vector<Measurement> _meas;
 
 };
