@@ -93,23 +93,32 @@ void CollectTempStats::publishDecisionLine(double vx, double vy, double b) {
   m_Comms.Notify("VIEW_SEGLIST",s.str());
 }
 
+bool runTester() {
+  cout << "HIHIHI" << endl;
+  MeasurementList ml;
+  ml.add(Measurement(0, 0, 3823.0, 0, "abc"));
+  ml.add(Measurement(1, 2, 0, 0, "helloooo"));
+  ml.add(Measurement(32.8, 32.232, 0, 0, "helloooo")); // should be ignored
+  ml.add(Measurement(328.238, 0, 3283.328, 32832082380.338, "abc"));
+  ml.add(Measurement(-330.302, -20, -2382, 3282082.238, "abc"));
+  std::cout << ml.toString() << endl;
+  if (ml.toString() != "0,0,3823,0,abc@1,2,0,0,helloooo@328.238,0,3283.33,3.28321e+10,abc@-330.302,-20,-2382,3.28208e+06,abc@") {
+    cout << "Test Failed" << endl;
+    return(false);
+  }
+
+  cout << "MeasurementList test passed" << endl;
+  return(true);
+}
+
 //---------------------------------------------------------
 // Constructor
 
 CollectTempStats::CollectTempStats()
 {
-    cout << "HIHIHI" << endl;
-    MeasurementList ml;
-    ml.add(Measurement(0, 0, 3823.0, 0, "abc"));
-    ml.add(Measurement(1, 2, 0, 0, "helloooo"));
-    ml.add(Measurement(32.8, 32.232, 0, 0, "helloooo"));
-    ml.add(Measurement(328.238, 0, 3283.328, 32832082380.338, "abc"));
-    ml.add(Measurement(-330.302, -20, -2382, 3282082.238, "abc"));
-    std::cout << ml.toString() << endl;
-    cout << "MeasurementList test passed" << endl;
-
-    m_iterations = 0;
-    m_timewarp   = 1;
+  runTester();
+  m_iterations = 0;
+  m_timewarp   = 1;
 }
 
 //---------------------------------------------------------
