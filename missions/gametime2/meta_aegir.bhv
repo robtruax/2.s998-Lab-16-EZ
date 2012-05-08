@@ -82,9 +82,9 @@ Behavior = BHV_RubberBandTruax
 //  endflag   = RETURN = true
 //  endflag = SURVEY_UNDERWAY = false
 
-  point = 50,-87.5
-  outer_radius = 100
-  inner_radius = 100
+  point = 55,-105
+  outer_radius = 80
+  inner_radius = 80
   stiffness = 10
   outer_speed = 2
   extra_speed = 2

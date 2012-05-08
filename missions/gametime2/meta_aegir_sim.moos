@@ -15,13 +15,13 @@ Processconfig = ANTLER
   Run = pLogger            @ NewConsole = false
   Run = pNodeReporter      @ NewConsole = false
   Run = pMarinePID         @ NewConsole = false
-  Run = pHelmIvP           @ NewConsole = true
+  Run = pHelmIvP           @ NewConsole = false
   Run = pBasicContactMgr   @ NewConsole = false
-  Run = pHostInfo          @ NewConsole = true,XConfig=4
+  Run = pHostInfo          @ NewConsole = false,XConfig=4
   Run = uFldNodeBroker     @ NewConsole = false
   Run = uFldMessageHandler @ NewConsole = false
   
-  Run = uTimerScript       @ NewConsole = false
+  Run = uTimerScript       @ NewConsole = true
   Run = pCollectTempStats  @ NewConsole = true
   Run = pFrontEstimate     @ NewConsole = true,XConfig=4
 
@@ -38,4 +38,7 @@ Processconfig = ANTLER
 #include plug_pHostInfo.moos
 #include plug_uFldNodeBroker.moos
 #include plug_uFldMessageHandler.moos
+#include plug_uTimerScript.moos
+#include plug_pFrontEstimate.moos
+#include plug_pCollectTempStats.moos
 

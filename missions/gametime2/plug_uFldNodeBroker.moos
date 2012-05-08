@@ -8,10 +8,13 @@ ProcessConfig = uFldNodeBroker
 
   TRY_SHORE_HOST = hostip=localhost, port_udp=9301
   //TRY_SHORE_HOST = hostip=10.25.0.5, port_udp=9001
+  TRY_SHORE_HOST = hostip=$(SHOREIP), port_udp=9301
 
   BRIDGE = src=VIEW_POLYGON
   BRIDGE = scr=VIEW_POINT
   BRIDGE = src=VIEW_SEGLIST
+  BRIDGE = src=UCTD_SENSOR_REQUEST
+  BRIDGE = src=UCTD_PARAMETER_ESTIMATE
   
   BRIDGE = src=NODE_REPORT_LOCAL,  alias=NODE_REPORT
   BRIDGE = src=NODE_MESSAGE_LOCAL, alias=NODE_MESSAGE
