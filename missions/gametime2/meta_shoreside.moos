@@ -83,7 +83,7 @@ ProcessConfig = uFldNodeComms
   COMMS_RANGE      = 10000
   CRITICAL_RANGE   = 5000
 
-  MIN_MSG_INTERVAL = 10000
+  MIN_MSG_INTERVAL = 0
   MAX_MSG_LENGTH   = 10000
 }
 
