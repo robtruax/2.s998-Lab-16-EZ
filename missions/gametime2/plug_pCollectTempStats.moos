@@ -1,7 +1,7 @@
 ProcessConfig = pCollectTempStats
 {
-  AppTick = 2
-  CommsTick = 2
+  AppTick = 6
+  CommsTick = 6
 
   vehiclename = $(VNAME)
 }

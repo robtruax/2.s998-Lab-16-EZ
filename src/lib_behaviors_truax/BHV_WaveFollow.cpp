@@ -152,7 +152,7 @@ IvPFunction *BHV_WaveFollow::onRunState()
   postMessage("ALPHA_WAVEFOLLOW",alpha);
   // ranges from 1 to -1 with 0 on the front
 
-  // Weighted sum of headings
+  // get heading errror
   double error;
   if (alpha > _alpha_setpoint) {
     error = wrapDegError(hot_heading - heading);

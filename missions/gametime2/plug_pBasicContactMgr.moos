@@ -7,9 +7,9 @@ ProcessConfig = pBasicContactMgr
   CommsTick = 2
 
 //  ALERT_RANGE     = 55
-  ALERT_RANGE     = 5
+  ALERT_RANGE     = 1
 //  ALERT_CPA_RANGE = 70
-  ALERT_CPA_RANGE = 5
+  ALERT_CPA_RANGE = 1
 //  ALERT_CPA_TIME  = 30
   ALERT_CPA_TIME  = 30
   CONTACT_MAX_AGE = 3600
