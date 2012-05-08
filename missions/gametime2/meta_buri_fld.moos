@@ -24,6 +24,10 @@ Processconfig = ANTLER
   Run = iGPS_KF            @ NewConsole = false
   Run = iOS5000            @ NewConsole = false
   Run = pEchoVar           @ NewConsole = false
+  
+  Run = uTimerScript       @ NewConsole = true
+  Run = pCollectTempStats  @ NewConsole = true
+//  Run = pFrontEstimate     @ NewConsole = true,XConfig=4
 }
   
 #include plug_pMOOSBridgeV.moos
@@ -39,6 +43,10 @@ Processconfig = ANTLER
 #include plug_pEchoVar.moos
 #include plug_iGPS_KF.moos
 #include plug_iOS5000.moos
+
+#include plug_uTimerScript.moos
+//#include plug_pFrontEstimate.moos
+#include plug_pCollectTempStats.moos
 
 #ifdef VNAME archie
   #include plug_iActuationKF_archie.moos

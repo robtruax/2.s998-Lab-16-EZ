@@ -5,7 +5,7 @@ ProcessConfig = pFrontEstimate
 
   vname = $(VNAME)
   temperature_factor = 100
-  cooling_steps = 1000
+  cooling_steps = 100
   min_offset = -120
   max_offset = -60
   min_angle = -5

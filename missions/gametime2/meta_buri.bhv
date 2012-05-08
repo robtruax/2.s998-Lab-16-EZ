@@ -25,7 +25,6 @@ set MODE = RETURNING {
 
 set MODE = SURVEYING {
   MODE = ACTIVE
-  SURVEY_UNDERWAY = true
   RETURN = false
 } 
 
@@ -83,9 +82,9 @@ Behavior = BHV_RubberBandTruax
 //  endflag   = RETURN = true
 //  endflag = SURVEY_UNDERWAY = false
 
-  point = 50,-87.5
-  outer_radius = 100
-  inner_radius = 100
+  point = 55,-105
+  outer_radius = 80
+  inner_radius = 80
   stiffness = 10
   outer_speed = 2
   extra_speed = 2
@@ -110,7 +109,7 @@ Behavior = BHV_Waypoint
 //       clockwise = false
   capture_radius = 4.0
        nm_radius = 15.0
-         polygon = format=radial, x=50, y=-87.5, radius=100, pts=20, snap=1
+         polygon = format=radial, x=55, y=-105, radius=80, pts=20, snap=1
 //          repeat = 1
 
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki

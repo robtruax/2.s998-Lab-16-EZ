@@ -25,6 +25,7 @@ set MODE = RETURNING {
 
 set MODE = SURVEYING {
   MODE = ACTIVE
+  STATION = false
   RETURN = false
 } 
 
@@ -47,7 +48,7 @@ Behavior = BHV_WaveFollow
   condition = MODE==WAVE_FOLLOWING
 //  perpetual = true
   updates   = FOLLOW_UPDATES
-//  activeflag  = SURVEY_UNDERWAY = true
+  activeflag  = SURVEY_UNDERWAY = true
 
   pd = 0.5
   speed = 2.0
@@ -126,6 +127,7 @@ Behavior = BHV_Waypoint
   condition = MODE==RETURNING
   endflag   = STATION = true
   endflag   = RETURN  = false
+  activeflag = SURVEY_UNDERWAY = false
 
       speed = $(CRUISESPEED)
      radius = 3.0
@@ -141,6 +143,7 @@ Behavior = BHV_StationKeep
   name      = station_keep
   pwt       = 75
   condition = MODE==STATION-KEEPING
+  activeflag = SURVEY_UNDERWAY = false
 
   center_activate = true
      inner_radius = 5
