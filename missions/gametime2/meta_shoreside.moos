@@ -19,6 +19,9 @@ Processconfig = ANTLER
   Run = pHostInfo       @ NewConsole = true
   Run = uFldShoreBroker @ NewConsole = true,XConfig=3
   Run = uFldNodeComms   @ NewConsole = true,XConfig=2
+  
+  Run = uFldCTDSensor  @ NewConsole = true,XConfig=1
+  Run = pFrontGridRender  @ NewConsole = false,XConfig=4
 
   1 = -geometry,80x30+0+0,-bg,lightgreen,-fg,brown
   2 = -geometry,80x15+0+460,-bg,green,-fg,black
@@ -27,6 +30,20 @@ Processconfig = ANTLER
 }
 
 #include plug_pHostInfo.moos
+#include plug_uFldCTDSensor.moos
+
+//--------------------------------------------------
+// pFrontGridRender Configuration Block
+
+ProcessConfig = pFrontGridRender
+{
+  AppTick       = 1
+  CommsTick     = 1
+                                                              
+  GRID_CONFIG = pts={-100,-200: 200,-200: 200,25: -100,25} 
+  GRID_CONFIG = cell_size=7
+  GRID_CONFIG = cell_vars=x:0
+}
 
 //--------------------------------------------------
 // uFldShoreBroker Configuration Block
