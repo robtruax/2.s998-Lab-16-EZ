@@ -50,7 +50,7 @@ Behavior = BHV_WaveFollow
 //  activeflag  = SURVEY_UNDERWAY = true
 
   pd = 0.5
-  speed = 2.0
+  speed = 1.5
 
 }
 
@@ -86,8 +86,8 @@ Behavior = BHV_RubberBandTruax
   outer_radius = 80
   inner_radius = 80
   stiffness = 10
-  outer_speed = 2
-  extra_speed = 2
+  outer_speed = 1.5
+  extra_speed = 1.5
 
 }
 
@@ -104,7 +104,7 @@ Behavior = BHV_Waypoint
 //  inactiveflag = SURVEY_UNDERWAY=false
   endflag   = STAT_COLLECT = false
 
-           speed = 2.0   // meters per second
+           speed = 1.5   // meters per second
           radius = 8.0
 //       clockwise = false
   capture_radius = 4.0
@@ -173,27 +173,6 @@ Behavior = BHV_AvoidCollision
      max_util_cpa_dist = 25
              pwt_grade = linear
    bearing_line_config = white:0, green:0.65, yellow:0.8, red:1.0
-}
-
-//----------------------------------------------
-Behavior = BHV_Loiter
-{
-  name      = loiter_pattern
-  pwt       = 75
-  updates   = LOITER_UPDATES
-  condition = MODE==LOITERING
-  endflag   = RETURN=true
-  endflag   = DEPLOY=false
-
-           speed = $(CRUISESPEED)
-    acquire_dist = 20
-  capture_radius = 5
-       clockwise = true
-         polygon = radial:: $(LOITER_PT), radius=20, pts=6, snap=1, label=$(VNAME)
-     slip_radius = 8
-    visual_hints = nextpt_color=white, nextpt_lcolor=khaki
-    visual_hints = edge_color=blue, vertex_color=yellow
-    visual_hints = edge_size=1, vertex_size=2
 }
 
 
