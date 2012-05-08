@@ -1,0 +1,163 @@
+ //*******************************************************
+// ShoreSide Configuration File
+
+ServerHost = localhost
+ServerPort = $(SPORT)
+Community  = $(SNAME)
+
+#include plug_origin_warp.moos
+  
+//--------------------------------------------------------
+Processconfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pMOOSBridge     @ NewConsole = false
+  Run = pMarineViewer   @ NewConsole = true
+  Run = pLogger         @ NewConsole = false
+  Run = pHostInfo       @ NewConsole = true
+  Run = uFldShoreBroker @ NewConsole = true,XConfig=3
+  Run = uFldNodeComms   @ NewConsole = true,XConfig=2
+
+  1 = -geometry,80x30+0+0,-bg,lightgreen,-fg,brown
+  2 = -geometry,80x15+0+460,-bg,green,-fg,black
+  3 = -geometry,80x15+0+690,-bg,lightblue,-fg,black
+  4 = -geometry,80x20+80+950,-bg,purple,-fg,white
+}
+
+#include plug_pHostInfo.moos
+
+//--------------------------------------------------
+// uFldShoreBroker Configuration Block
+
+ProcessConfig = uFldShoreBroker
+{
+  AppTick       = 1
+  CommsTick     = 1
+
+  QBRIDGE  = DEPLOY, RETURN, STATION, MOOS_MANUAL_OVERIDE, RETURN_UPDATES
+  QBRIDGE  = NODE_REPORT, NODE_MESSAGE, LOITER, COLL_AVD
+
+  BRIDGE   = src=UP_STATION_$N, alias=UP_STATION
+  BRIDGE   = src=LOITER_UPDATES_$V, alias=LOITER_UPDATES
+}
+
+//--------------------------------------------------------
+ProcessConfig = pMOOSBridge
+{
+  AppTick   = 3
+  CommsTick = 3
+
+  UDPListen = $(SLPORT)
+  BridgeFrequency = 0  
+}
+
+//--------------------------------------------------
+// uFldNodeComms Configuration Block
+
+ProcessConfig = uFldNodeComms
+{
+  AppTick       = 2
+  CommsTick     = 2
+
+  COMMS_RANGE      = 10000
+  CRITICAL_RANGE   = 5000
+
+  MIN_MSG_INTERVAL = 10000
+  MAX_MSG_LENGTH   = 10000
+}
+
+//--------------------------------------------------
+// pLogger Configuration Block
+
+ProcessConfig = pLogger
+{
+  AppTick       = 10
+  CommsTick     = 10
+  
+  File          = LOG_SHORESIDE
+  PATH          = ./
+  SyncLog       = true @ 0.2
+  AsyncLog      = true
+  FileTimeStamp = true
+
+  // Log it all!!!!!
+  WildCardLogging = true 
+}
+
+
+//--------------------------------------------------------
+ProcessConfig = pMarineViewer
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  TIFF_FILE            = AerialMIT.tif
+  set_pan_x            = -30
+  set_pan_y            = 0
+  zoom                 = 1.8
+  vehicles_shape_scale = 1.5
+  vehicles_name_viewable = names
+
+  left_context[return_archie]  = RETURN_UPDATES_ARCHIE = point=$(XPOS),$(YPOS)
+  left_context[return_archie]  = RETURN_ARCHIE  = true
+  left_context[return_archie]  = STATION_ARCHIE = false
+  left_context[return_archie]  = DEPLOY_ARCHIE  = true
+
+  left_context[return_betty]  = RETURN_UPDATES_BETTY = point=$(XPOS),$(YPOS)
+  left_context[return_betty]  = RETURN_BETTY  = true
+  left_context[return_betty]  = STATION_BETTY = false
+  left_context[return_betty]  = DEPLOY_BETTY  = true
+
+  SCOPE = PHI_HOST_INFO
+
+  ACTION  = STATION_ARCHIE = false
+  ACTION  = STATION_ARCHIE = true
+  ACTION  = RETURN_ARCHIE  = false
+  ACTION  = RETURN_ARCHIE  = true
+  ACTION  = DEPLOY_ARCHIE  = false
+  ACTION+ = DEPLOY_ARCHIE  = true
+
+  ACTION  = STATION_BETTY = false
+  ACTION  = STATION_BETTY = true
+  ACTION  = RETURN_BETTY  = false
+  ACTION  = RETURN_BETTY  = true
+  ACTION  = DEPLOY_BETTY  = false
+  ACTION+ = DEPLOY_BETTY  = true
+
+  ACTION  = MENU_KEY=CONFIG-1 # LOITER_UPDATES_ARCHIE = center_assign=$(LOITER_PT1)
+  ACTION+ = MENU_KEY=CONFIG-1 # LOITER_UPDATES_BETTY  = center_assign=$(LOITER_PT2)
+
+  ACTION  = MENU_KEY=CONFIG-2 # LOITER_UPDATES_ARCHIE = center_assign=$(LOITER_PT2)
+  ACTION+ = MENU_KEY=CONFIG-2 # LOITER_UPDATES_BETTY  = center_assign=$(LOITER_PT1)
+
+  ACTION  = COLL_AVD_ALL = true
+  ACTION+ = COLL_AVD_ALL = false
+
+  BUTTON_ONE   = DEPLOY  # DEPLOY_ALL=true 
+  BUTTON_ONE   = LOITER_ALL=true
+  BUTTON_ONE   = MOOS_MANUAL_OVERIDE_ALL=false 
+  BUTTON_ONE   = RETURN_ALL=false
+  BUTTON_ONE   = STATION_ALL=false
+
+  BUTTON_TWO   = RETURN  # RETURN_ALL=true
+  BUTTON_TWO   = LOITER_ALL=false
+  BUTTON_TWO   = MOOS_MANUAL_OVERIDE_ALL=false
+  BUTTON_TWO   = DEPLOY_ALL=true
+  BUTTON_TWO   = STATION_ALL=false
+
+  BUTTON_THREE = STATION-NOW  # STATION_ALL=true
+  BUTTON_THREE  = LOITER_ALL=false
+  BUTTON_THREE = MOOS_MANUAL_OVERIDE_ALL=false 
+  BUTTON_THREE = RETURN_ALL=false
+  BUTTON_THREE = DEPLOY_ALL=true
+
+  BUTTON_FOUR  = ALL-STOP # MOOS_MANUAL_OVERIDE_ALL=true
+  BUTTON_FOUR  = LOITER_ALL=false
+  BUTTON_FOUR  = RETURN_ALL=false
+  BUTTON_FOUR  = DEPLOY_ALL=false
+  BUTTON_FOUR  = STATION_ALL=false 
+
+}
+
