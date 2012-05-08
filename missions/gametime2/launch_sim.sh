@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-WARP=1
+WARP=20
 HELP="no"
 JUST_BUILD="no"
 SIMULATE="no"
@@ -59,16 +59,16 @@ fi
 VNAME1="aegir"  # The archie vehicle Community
 VPORT1="9100"
 LPORT1="9101"
-START_POS1="0,-20"      
+START_POS1="0,-50"      
 LOITER_PT1="x=-10,y=-60"
-RETURN_PT1="0,-20"
+RETURN_PT1="0,-50"
 
 VNAME2="buri"  # The betty vehicle Community
 VPORT2="9200"
 LPORT2="9201"
-START_POS2="50,0"       
+START_POS2="50,-50"
 LOITER_PT2="x=50,y=-40"
-RETURN_PT2="30,-10"
+RETURN_PT2="30,-50"
 
 SNAME="shoreside"  # Shoreside Community
 SPORT="9300"
