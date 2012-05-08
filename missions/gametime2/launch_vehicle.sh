@@ -3,8 +3,8 @@
 WARP=1
 HELP="no"
 JUST_BUILD="no"
-ARCHIE="no"
-BETTY="no"
+AEGIR="no"
+BURI="no"
 BAD_ARGS=""
 
 #-------------------------------------------------------
@@ -16,12 +16,12 @@ for ARGI; do
 	HELP="yes"
 	UNDEFINED_ARG=""
     fi
-    if [ "${ARGI}" = "--betty" -o "${ARGI}" = "-b" ] ; then
-      BETTY="yes"
+    if [ "${ARGI}" = "--buri" -o "${ARGI}" = "-b" ] ; then
+      BURI="yes"
       UNDEFINED_ARG=""
     fi
-    if [ "${ARGI}" = "--archie" -o "${ARGI}" = "-a" ] ; then
-      ARCHIE="yes"
+    if [ "${ARGI}" = "--aegir" -o "${ARGI}" = "-a" ] ; then
+      AEGIR="yes"
       UNDEFINED_ARG=""
     fi
     if [ "${ARGI}" = "--just_build" -o "${ARGI}" = "-j" ] ; then
@@ -43,12 +43,12 @@ if [ "${BAD_ARGS}" != "" ] ; then
     exit 0
 fi
 
-if [ "${ARCHIE}" = "no" -a "${BETTY}" = "no" ] ; then
+if [ "${AEGIR}" = "no" -a "${BURI}" = "no" ] ; then
     printf "ONE vehicle MUST be selected!!!!!!!!!!!! \n"
     HELP="yes"
 fi
 
-if [ "${ARCHIE}" = "yes" -a "${BETTY}" = "yes" ] ; then
+if [ "${AEGIR}" = "yes" -a "${BURI}" = "yes" ] ; then
     printf "ONE vehicle MUST be selected!!!!!!!!!!!! \n"
     HELP="yes"
 fi
@@ -56,8 +56,8 @@ fi
 if [ "${HELP}" = "yes" ]; then
     printf "%s [SWITCHES]            \n" $0
     printf "Switches:                \n"
-    printf "  --archie, -a           archie vehicle only                   \n"
-    printf "  --betty, -b            betty vehicle only                    \n"
+    printf "  --aegir, -a           aegir vehicle only                   \n"
+    printf "  --buri, -b            buri vehicle only                    \n"
     printf "  --just_build, -j       \n" 
     printf "  --help, -h             \n" 
     exit 0;
@@ -69,36 +69,36 @@ fi
 
 CRUISESPEED="1.8"
 
-VNAME1="archie"  # The first vehicle Community
+VNAME1="aegir"  # The first vehicle Community
 VPORT1="9100"
 LPORT1="9101"
 LOITER_PT1="x=-10,y=-60"
 RETURN_PT1="0,-20"
 
-VNAME2="betty"  # The second vehicle Community
+VNAME2="buri"  # The second vehicle Community
 VPORT2="9200"
 LPORT2="9201"
 LOITER_PT2="x=50,y=-40"
 RETURN_PT2="30,-10"
 
-# Conditionally Prepare Archie files
-if [ "${ARCHIE}" = "yes" ]; then
-    nsplug meta_vehicle_fld.moos targ_archie.moos -f      \
+# Conditionally Prepare Aegir files
+if [ "${AEGIR}" = "yes" ]; then
+    nsplug meta_vehicle_fld.moos targ_aegir.moos -f      \
       VNAME=$VNAME1 VPORT=$VPORT1 LPORT=$LPORT1 WARP=$WARP     
 
-    nsplug meta_vehicle.bhv targ_archie.bhv -f            \
+    nsplug meta_vehicle.bhv targ_aegir.bhv -f            \
         VNAME=$VNAME1                                     \
 	CRUISESPEED=$CRUISESPEED                          \
         RETURN_PT=$RETURN_PT1                             \
         LOITER_PT=$LOITER_PT1
 fi
 
-# Conditionally Prepare Betty files
-if [ "${BETTY}" = "yes" ]; then
-    nsplug meta_vehicle_fld.moos targ_betty.moos -f       \
+# Conditionally Prepare Buri files
+if [ "${BURI}" = "yes" ]; then
+    nsplug meta_vehicle_fld.moos targ_buri.moos -f       \
       VNAME=$VNAME2 VPORT=$VPORT2 LPORT=$LPORT2 WARP=$WARP     
 
-    nsplug meta_vehicle.bhv targ_betty.bhv -f             \
+    nsplug meta_vehicle.bhv targ_buri.bhv -f             \
             VNAME=$VNAME2                                 \
       CRUISESPEED=$CRUISESPEED                            \
         RETURN_PT=$RETURN_PT2                             \
@@ -113,16 +113,16 @@ fi
 #  Part 4: Launch the processes
 #-------------------------------------------------------
 
-# Launch Archie
-if [ "${ARCHIE}" = "yes" ]; then
-    printf "Launching Archie MOOS Community \n"
-    pAntler targ_archie.moos >& /dev/null &
+# Launch Aegir
+if [ "${AEGIR}" = "yes" ]; then
+    printf "Launching Aegir MOOS Community \n"
+    pAntler targ_aegir.moos >& /dev/null &
 fi
 
-# Launch Betty
-if [ "${BETTY}" = "yes" ]; then
-    printf "Launching Betty MOOS Community \n"
-    pAntler targ_betty.moos >& /dev/null &
+# Launch Buri
+if [ "${BURI}" = "yes" ]; then
+    printf "Launching Buri MOOS Community \n"
+    pAntler targ_buri.moos >& /dev/null &
 fi
 
 #-------------------------------------------------------

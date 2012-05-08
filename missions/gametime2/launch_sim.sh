@@ -56,14 +56,14 @@ fi
 #  Part 2: Create the .moos and .bhv files. 
 #-------------------------------------------------------
 
-VNAME1="archie"  # The archie vehicle Community
+VNAME1="aegir"  # The archie vehicle Community
 VPORT1="9100"
 LPORT1="9101"
 START_POS1="0,-20"      
 LOITER_PT1="x=-10,y=-60"
 RETURN_PT1="0,-20"
 
-VNAME2="betty"  # The betty vehicle Community
+VNAME2="buri"  # The betty vehicle Community
 VPORT2="9200"
 LPORT2="9201"
 START_POS2="50,0"       
@@ -75,23 +75,23 @@ SPORT="9300"
 SLPORT="9301"
 
 
-# Prepare Archie files
-nsplug meta_vehicle_sim.moos targ_archie.moos -f        \
+# Prepare Aegir files
+nsplug meta_aegir_sim.moos targ_aegir.moos -f        \
     VNAME=$VNAME1 VPORT=$VPORT1 LPORT=$LPORT1           \
     START_POS=$START_POS1 WARP=$WARP                    \                 
 
-nsplug meta_vehicle.bhv targ_archie.bhv -f              \
+nsplug meta_aegir.bhv targ_aegir.bhv -f              \
     VNAME=$VNAME1                                       \
     CRUISESPEED=$CRUISESPEED                            \
     LOITER_PT=$LOITER_PT1                               \
     RETURN_PT=$RETURN_PT1
 
-# Prepare Betty files
-nsplug meta_vehicle_sim.moos targ_betty.moos -f         \
+# Prepare Buri files
+nsplug meta_buri_sim.moos targ_buri.moos -f         \
     VNAME=$VNAME2 VPORT=$VPORT2 LPORT=$LPORT2           \
     START_POS=$START_POS2  WARP=$WARP                   \
 
-nsplug meta_vehicle.bhv targ_betty.bhv -f               \
+nsplug meta_buri.bhv targ_buri.bhv -f               \
     VNAME=$VNAME2                                       \
     CRUISESPEED=$CRUISESPEED                            \
     LOITER_PT=$LOITER_PT2                               \
@@ -116,12 +116,12 @@ fi
 
 # Launch Archie
 printf "Launching Archie MOOS Community \n"
-pAntler targ_archie.moos >& /dev/null &
+pAntler targ_aegir.moos >& /dev/null &
 sleep 0.1
 
 # Launch Betty
 printf "Launching Betty MOOS Community \n"
-pAntler targ_betty.moos >& /dev/null &
+pAntler targ_buri.moos >& /dev/null &
 sleep 0.1
 
 # Launch shorestation 
