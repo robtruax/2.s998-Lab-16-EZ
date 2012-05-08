@@ -123,7 +123,12 @@ bool CollectTempStats::runTester() {
   ml.add(Measurement(32.8, 32.232, 0, 0, "helloooo")); // should be ignored
   ml.add(Measurement(328.238, 0, 3283.328, 32832082380.338, "abc"));
   ml.add(Measurement(-330.302, -20, -2382, 3282082.238, "abc"));
-  std::cout << ml.toString() << endl;
+  MeasurementList m2 = MeasurementList(ml.toString());
+  //std::cout << ml.toString() << endl;
+  if (m2.toString() != ml.toString()) {
+      cout << "Test Failed" << endl;
+      return false;
+  }
   //  if (ml.toString() != "0,0,3823,0,abc@1,2,0,0,helloooo@328.238,0,3283.33,3.28321e+10,abc@-330.302,-20,-2382,3.28208e+06,abc@") {
   //   cout << "Test Failed" << endl;
   //   return(false);

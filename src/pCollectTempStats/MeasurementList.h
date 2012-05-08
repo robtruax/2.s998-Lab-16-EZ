@@ -19,6 +19,12 @@
 class MeasurementList {
 public:
 
+    MeasurementList() {};
+
+    MeasurementList(std::string s) {
+	this->fromString(s);
+    }
+
     std::string toString() {
 	std::stringstream s;
 	for (int i = 0; i < _meas.size(); i++) {
