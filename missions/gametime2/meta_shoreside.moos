@@ -58,6 +58,8 @@ ProcessConfig = uFldShoreBroker
 
   BRIDGE   = src=UP_STATION_$N, alias=UP_STATION
   BRIDGE   = src=LOITER_UPDATES_$V, alias=LOITER_UPDATES
+  
+  BRIDGE   = src=UCTD_MSMNT_REPORT_$V, alias=UCTD_MSMNT_REPORT
 }
 
 //--------------------------------------------------------

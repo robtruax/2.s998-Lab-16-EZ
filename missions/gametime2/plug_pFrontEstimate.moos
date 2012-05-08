@@ -4,8 +4,8 @@ ProcessConfig = pFrontEstimate
   CommsTick  = 4
 
   vname = $(VNAME)
-  temperature_factor = $(COOL_FAC)
-  cooling_steps = $(COOL_STEPS)
+  temperature_factor = 100
+  cooling_steps = 1000
   min_offset = -120
   max_offset = -60
   min_angle = -5
@@ -24,5 +24,5 @@ ProcessConfig = pFrontEstimate
   max_T_N = 25 
   min_T_S = 20
   max_T_S = 30 
-  concurrent = $(CONCURRENT)
+  concurrent = false
 }
