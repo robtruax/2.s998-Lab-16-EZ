@@ -110,7 +110,9 @@ Behavior = BHV_Waypoint
 //       clockwise = false
   capture_radius = 4.0
        nm_radius = 15.0
-         polygon = format=radial, x=55, y=-105, radius=80, pts=20, snap=1
+polygon = pts = { 56, -25: 63, -25: 70, -26: 77, -28: 83, -30: 90, -33: 96, -36: 102, -40: 107, -44: 112, -49: 117, -54: 121, -60: 124, -66: 128, -72: 130, -78: 132, -85: 134, -92: 134, -99: 134, -106: 134, -113: 133, -120: 131, -127: 129, -133: 126, -140: 123, -146: 119, -152: 115, -157: 110, -162: 105, -167: 99, -171: 93, -174: 87, -178: 81, -180: 74, -182: 67, -184: 60, -184: }
+
+//         polygon = format=radial, x=55, y=-105, radius=80, pts=20, snap=1
 //          repeat = 1
 
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki
