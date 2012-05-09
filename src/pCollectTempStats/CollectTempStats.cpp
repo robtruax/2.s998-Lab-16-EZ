@@ -34,8 +34,41 @@ double CollectTempStats::getHotHeading() {
 
 double CollectTempStats::getHotHeading2() {
 
-  Measurement hot = _meas.getMaxTemp();
-  Measurement cold = _meas.getMinTemp();
+  Measurement hot1 = _meas.getMaxTemp();
+  Measurement hot2 = _otherMeas.getMaxTemp();
+  Measurement cold1 = _meas.getMinTemp();
+  Measurement cold2 = _otherMeas.getMinTemp();
+
+  Measurement hot;
+  Measurement cold;
+
+  if (hot1.temp <= 0) {
+    hot = hot2;
+  }
+  else if (hot2.temp <= 0) {
+    hot = hot1;
+  }
+  else if (hot1.temp > hot2.temp) {
+    hot = hot1;
+  }
+  else {
+    hot = hot2;
+  }
+
+  if (cold1.temp <= 0) {
+    cold = cold2;
+  }
+  else if (cold2.temp <= 0) {
+    cold = cold1;
+  }
+  else if (cold1.temp < cold2.temp) {
+    cold = cold1;
+  }
+  else {
+    cold = cold2;
+  }
+
+  cout << "hot:cold = " << hot.temp << ":" << cold.temp << endl;
 
   double deg_heading = -1.0;
 
@@ -272,7 +305,7 @@ bool CollectTempStats::OnConnectToServer()
 bool CollectTempStats::Iterate()
 {
   m_iterations++;
-  if (_meas.all().size() > 3 && m_iterations % 20 == 0) {
+  if (_meas.all().size() + _otherMeas.all().size() > 3 && m_iterations % 20 == 0) {
     m_Comms.Notify("HOT_HEADING", getHotHeading2());
     m_Comms.Notify("MAX_TEMP", _meas.getMaxTemp().temp);
     m_Comms.Notify("MIN_TEMP", _meas.getMinTemp().temp);
