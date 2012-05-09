@@ -28,7 +28,6 @@ for ARGI; do
 	JUST_BUILD="yes"
 	UNDEFINED_ARG=""
     fi
-    fi
     if [ "${UNDEFINED_ARG}" != "" ] ; then
 	BAD_ARGS=$UNDEFINED_ARG
     fi
