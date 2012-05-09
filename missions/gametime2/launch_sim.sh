@@ -56,14 +56,14 @@ fi
 #  Part 2: Create the .moos and .bhv files. 
 #-------------------------------------------------------
 
-VNAME1="aegir"  # The archie vehicle Community
+VNAME1="aegir"  # The Aegir vehicle Community
 VPORT1="9100"
 LPORT1="9101"
 START_POS1="0,-20"      
 LOITER_PT1="x=-10,y=-60"
 RETURN_PT1="0,-20"
 
-VNAME2="buri"  # The betty vehicle Community
+VNAME2="buri"  # The Buri vehicle Community
 VPORT2="9200"
 LPORT2="9201"
 START_POS2="50,0"       
@@ -114,13 +114,13 @@ fi
 #  Part 3: Launch the processes
 #-------------------------------------------------------
 
-# Launch Archie
-printf "Launching Archie MOOS Community \n"
+# Launch Aegir
+printf "Launching Aegir MOOS Community \n"
 pAntler targ_aegir.moos >& /dev/null &
 sleep 0.1
 
-# Launch Betty
-printf "Launching Betty MOOS Community \n"
+# Launch Buri
+printf "Launching Buri MOOS Community \n"
 pAntler targ_buri.moos >& /dev/null &
 sleep 0.1
 

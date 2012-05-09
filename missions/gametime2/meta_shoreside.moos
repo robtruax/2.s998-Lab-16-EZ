@@ -119,37 +119,37 @@ ProcessConfig = pMarineViewer
   vehicles_shape_scale = 1.5
   vehicles_name_viewable = names
 
-  left_context[return_archie]  = RETURN_UPDATES_ARCHIE = point=$(XPOS),$(YPOS)
-  left_context[return_archie]  = RETURN_ARCHIE  = true
-  left_context[return_archie]  = STATION_ARCHIE = false
-  left_context[return_archie]  = DEPLOY_ARCHIE  = true
+  left_context[return_aegir]  = RETURN_UPDATES_AEGIR = point=$(XPOS),$(YPOS)
+  left_context[return_aegir]  = RETURN_AEGIR  = true
+  left_context[return_aegir]  = STATION_AEGIR = false
+  left_context[return_aegir]  = DEPLOY_AEGIR  = true
 
-  left_context[return_betty]  = RETURN_UPDATES_BETTY = point=$(XPOS),$(YPOS)
-  left_context[return_betty]  = RETURN_BETTY  = true
-  left_context[return_betty]  = STATION_BETTY = false
-  left_context[return_betty]  = DEPLOY_BETTY  = true
+  left_context[return_buri]  = RETURN_UPDATES_BURI = point=$(XPOS),$(YPOS)
+  left_context[return_buri]  = RETURN_BURI  = true
+  left_context[return_buri]  = STATION_BURI = false
+  left_context[return_buri]  = DEPLOY_BURI  = true
 
   SCOPE = PHI_HOST_INFO
 
-  ACTION  = STATION_ARCHIE = false
-  ACTION  = STATION_ARCHIE = true
-  ACTION  = RETURN_ARCHIE  = false
-  ACTION  = RETURN_ARCHIE  = true
-  ACTION  = DEPLOY_ARCHIE  = false
-  ACTION+ = DEPLOY_ARCHIE  = true
+  ACTION  = STATION_AEGIR = false
+  ACTION  = STATION_AEGIR = true
+  ACTION  = RETURN_AEGIR  = false
+  ACTION  = RETURN_AEGIR  = true
+  ACTION  = DEPLOY_AEGIR  = false
+  ACTION+ = DEPLOY_AEGIR  = true
 
-  ACTION  = STATION_BETTY = false
-  ACTION  = STATION_BETTY = true
-  ACTION  = RETURN_BETTY  = false
-  ACTION  = RETURN_BETTY  = true
-  ACTION  = DEPLOY_BETTY  = false
-  ACTION+ = DEPLOY_BETTY  = true
+  ACTION  = STATION_BURI = false
+  ACTION  = STATION_BURI = true
+  ACTION  = RETURN_BURI  = false
+  ACTION  = RETURN_BURI  = true
+  ACTION  = DEPLOY_BURI  = false
+  ACTION+ = DEPLOY_BURI  = true
 
-  ACTION  = MENU_KEY=CONFIG-1 # LOITER_UPDATES_ARCHIE = center_assign=$(LOITER_PT1)
-  ACTION+ = MENU_KEY=CONFIG-1 # LOITER_UPDATES_BETTY  = center_assign=$(LOITER_PT2)
+  ACTION  = MENU_KEY=CONFIG-1 # LOITER_UPDATES_AEGIR = center_assign=$(LOITER_PT1)
+  ACTION+ = MENU_KEY=CONFIG-1 # LOITER_UPDATES_BURI  = center_assign=$(LOITER_PT2)
 
-  ACTION  = MENU_KEY=CONFIG-2 # LOITER_UPDATES_ARCHIE = center_assign=$(LOITER_PT2)
-  ACTION+ = MENU_KEY=CONFIG-2 # LOITER_UPDATES_BETTY  = center_assign=$(LOITER_PT1)
+  ACTION  = MENU_KEY=CONFIG-2 # LOITER_UPDATES_AEGIR = center_assign=$(LOITER_PT2)
+  ACTION+ = MENU_KEY=CONFIG-2 # LOITER_UPDATES_BURI  = center_assign=$(LOITER_PT1)
 
   ACTION  = COLL_AVD_ALL = true
   ACTION+ = COLL_AVD_ALL = false

@@ -1,4 +1,0 @@
-  Run = iActuationKF       @ NewConsole = false
-  Run = iGPS_KF            @ NewConsole = false
-  Run = iOS5000            @ NewConsole = false
-  Run = pEchoVar           @ NewConsole = false
