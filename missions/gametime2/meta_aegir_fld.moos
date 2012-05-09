@@ -25,9 +25,9 @@ Processconfig = ANTLER
   Run = iOS5000            @ NewConsole = false
   Run = pEchoVar           @ NewConsole = false
   
-  Run = uTimerScript       @ NewConsole = true
-  Run = pCollectTempStats  @ NewConsole = true
-  Run = pFrontEstimate     @ NewConsole = true,XConfig=4
+  Run = uTimerScript       @ NewConsole = false
+  Run = pCollectTempStats  @ NewConsole = false
+  Run = pFrontEstimate     @ NewConsole = false,XConfig=4
 }
   
 #include plug_pMOOSBridgeV.moos
@@ -48,8 +48,8 @@ Processconfig = ANTLER
 #include plug_pFrontEstimate.moos
 #include plug_pCollectTempStats.moos
 
-#ifdef VNAME archie
+#ifdef VNAME aegir
   #include plug_iActuationKF_archie.moos
-#elseifdef VNAME betty
+#elseifdef VNAME buri
   #include plug_iActuationKF_betty.moos
 #endif

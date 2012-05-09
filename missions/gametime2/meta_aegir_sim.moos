@@ -21,7 +21,7 @@ Processconfig = ANTLER
   Run = uFldNodeBroker     @ NewConsole = false
   Run = uFldMessageHandler @ NewConsole = false
   
-  Run = uTimerScript       @ NewConsole = true
+  Run = uTimerScript       @ NewConsole = false
   Run = pCollectTempStats  @ NewConsole = true
   Run = pFrontEstimate     @ NewConsole = true,XConfig=4
 
