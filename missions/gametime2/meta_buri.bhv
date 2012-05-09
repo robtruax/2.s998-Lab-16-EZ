@@ -126,15 +126,15 @@ Behavior = BHV_Waypoint
   updates   = RETURN_UPDATES
   condition = MODE==RETURNING
   endflag   = STATION = true
-  endflag   = RETURN  = false
+  cycleflag = RETURN  = false   // NOT endflag
 
       speed = $(CRUISESPEED)
      radius = 3.0
   nm_radius = 10.0
      points = $(RETURN_PT)
-     repeat = 10
+  perpetual = true              // NOT repeat=10
        lead = 8
-}
+} 
 
 //----------------------------------------------
 Behavior = BHV_StationKeep
