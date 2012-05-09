@@ -13,5 +13,5 @@ ProcessConfig = pHelmIvP
   Domain       = course:0:359:360
   Domain       = speed:0:5:26
 
-//  IVP_BEHAVIOR_DIRS=/home/robtruax/moos/moos-ivp-robtruax/lib
+//  IVP_BEHAVIOR_DIRS=/home/student/2.s998-Lab-16-EZ/lib
 }
