@@ -1,0 +1,12 @@
+
+1) plug_uFldNodeBroker.moos:
+
+   Set shore host ip accordingly
+
+2) plug_pHelmIvP.moos:
+   
+   Set behavior library accordingly
+
+3) put binary directiory in path
+
+4)

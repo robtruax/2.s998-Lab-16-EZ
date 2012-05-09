@@ -11,6 +11,7 @@ SET(SRC
   main.cpp
 )
 
+include_directories(/usr/local/include/eigen3)
 include_directories(/usr/include/eigen3)
 include_directories(/opt/local/include/eigen3)
 
