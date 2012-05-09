@@ -1,7 +1,0 @@
-ProcessConfig = pCollectTempStats
-{
-  AppTick = 2
-  CommsTick = 2
-
-  vehiclename = $(VNAME)
-}
