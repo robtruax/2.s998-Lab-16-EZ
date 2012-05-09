@@ -71,8 +71,8 @@ LOITER_PT2="x=50,y=-40"
 RETURN_PT2="30,-10"
 
 SNAME="shoreside"  # Shoreside Community
-SPORT="9300"
-SLPORT="9301"
+SPORT="9000"
+SLPORT="9001"
 
 
 # Prepare Aegir files

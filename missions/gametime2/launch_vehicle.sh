@@ -28,9 +28,6 @@ for ARGI; do
 	JUST_BUILD="yes"
 	UNDEFINED_ARG=""
     fi
-    if [ "${ARGI:0:7}" = "--shore" ] ; then
-	SHOREIP="${ARGI#--shore=*}"
-	UNDEFINED_ARG=""
     fi
     if [ "${UNDEFINED_ARG}" != "" ] ; then
 	BAD_ARGS=$UNDEFINED_ARG
@@ -87,10 +84,10 @@ RETURN_PT2="30,-10"
 
 # Conditionally Prepare Aegir files
 if [ "${AEGIR}" = "yes" ]; then
-    nsplug meta_vehicle_fld.moos targ_aegir.moos -f      \
+    nsplug meta_aegir_fld.moos targ_aegir.moos -f      \
       VNAME=$VNAME1 VPORT=$VPORT1 LPORT=$LPORT1 WARP=$WARP     
 
-    nsplug meta_vehicle.bhv targ_aegir.bhv -f            \
+    nsplug meta_aegir.bhv targ_aegir.bhv -f            \
         VNAME=$VNAME1                                     \
 	CRUISESPEED=$CRUISESPEED                          \
         RETURN_PT=$RETURN_PT1                             \
@@ -99,10 +96,10 @@ fi
 
 # Conditionally Prepare Buri files
 if [ "${BURI}" = "yes" ]; then
-    nsplug meta_vehicle_fld.moos targ_buri.moos -f       \
+    nsplug meta_buri_fld.moos targ_buri.moos -f       \
       VNAME=$VNAME2 VPORT=$VPORT2 LPORT=$LPORT2 WARP=$WARP     
 
-    nsplug meta_vehicle.bhv targ_buri.bhv -f             \
+    nsplug meta_buri.bhv targ_buri.bhv -f             \
             VNAME=$VNAME2                                 \
       CRUISESPEED=$CRUISESPEED                            \
         RETURN_PT=$RETURN_PT2                             \

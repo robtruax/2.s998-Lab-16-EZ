@@ -6,9 +6,9 @@ ProcessConfig = uFldNodeBroker
   AppTick   = 1
   CommsTick = 1
 
-  TRY_SHORE_HOST = hostip=localhost, port_udp=9301
+  TRY_SHORE_HOST = hostip=localhost, port_udp=9001
   //TRY_SHORE_HOST = hostip=10.25.0.5, port_udp=9001
-  TRY_SHORE_HOST = hostip=$(SHOREIP), port_udp=9301
+  //TRY_SHORE_HOST = hostip=, port_udp=9001
 
   BRIDGE = src=VIEW_POLYGON
   BRIDGE = scr=VIEW_POINT
