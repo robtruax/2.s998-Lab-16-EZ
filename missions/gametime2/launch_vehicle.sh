@@ -28,6 +28,10 @@ for ARGI; do
 	JUST_BUILD="yes"
 	UNDEFINED_ARG=""
     fi
+    if [ "${ARGI:0:7}" = "--shore" ] ; then
+	SHOREIP="${ARGI#--shore=*}"
+	UNDEFINED_ARG=""
+    fi
     if [ "${UNDEFINED_ARG}" != "" ] ; then
 	BAD_ARGS=$UNDEFINED_ARG
     fi
