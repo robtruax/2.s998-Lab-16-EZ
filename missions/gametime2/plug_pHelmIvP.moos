@@ -13,5 +13,6 @@ ProcessConfig = pHelmIvP
   Domain       = course:0:359:360
   Domain       = speed:0:5:26
 
-//  IVP_BEHAVIOR_DIRS=/home/student/2.s998-Lab-16-EZ/lib
+  // IVP_BEHAVIOR_DIR=/home/student/2.s998-Lab-16-EZ/lib
+  IVP_BEHAVIOR_DIR=/home/robtruax/moos/2.s998-Lab-16-EZ/lib/
 }
