@@ -49,6 +49,7 @@ protected: // Configuration parameters
 
   bool _bangbang;
   double _railmag;
+  double _min_weight;
 
 protected: // State variables
 

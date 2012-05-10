@@ -70,6 +70,7 @@ BHV_WaveFollow::BHV_WaveFollow(IvPDomain gdomain) :
   _alpha_setpoint = 0;
   _bangbang = false;
   _railmag = 0.0;
+  _min_weight = 25;
 }
 
 //---------------------------------------------------------------
@@ -92,7 +93,7 @@ bool BHV_WaveFollow::setParam(string param, string val)
     _alpha_setpoint = double_val;
     return(true);
   }
-  else if ((param == "bangbang") ) {
+  else if ((param == "bangbang" && val == "true") ) {
     _bangbang = true;
     return(true);
   }
@@ -160,16 +161,16 @@ IvPFunction *BHV_WaveFollow::onRunState()
 
   // pushing strength calculation.  rough temp distance to front
   double alpha = ( (max_T - temp) / (max_T - min_T) * 2 ) - 1;
-  postMessage("ALPHA_WAVEFOLLOW",alpha);
+  postMessage("ALPHA_SETPOINT",_alpha_setpoint);
   // ranges from 1 to -1 with 0 on the front
 
   // do bang bang controller
   if (_bangbang) {
-    if (_alpha_setpoint > 0 && alpha > _alpha_setpoint) {
+    if (_alpha_setpoint > 0 && alpha >= _alpha_setpoint) {
       //bang
       _alpha_setpoint = -_alpha_setpoint;
     }
-    else if (_alpha_setpoint < 0 && alpha < _alpha_setpoint) {
+    else if (_alpha_setpoint < 0 && alpha <= _alpha_setpoint) {
       _alpha_setpoint = -_alpha_setpoint;
     }
   }
@@ -181,6 +182,17 @@ IvPFunction *BHV_WaveFollow::onRunState()
   }
   else {
     error = wrapDegError((hot_heading-180) - heading);
+  }
+
+  // Error hack for better performance
+  if (error < -15) {
+    error = error + 15;
+  }
+  else if (error > 15) {
+    error = error - 15;
+  }
+  else {
+    error = 0;
   }
 
   double new_heading = heading + _Pd*error;
@@ -218,7 +230,7 @@ IvPFunction *BHV_WaveFollow::onRunState()
   ipf = coupler.couple(head_ipf, spd_ipf, 50, 50);
 
   if (ipf) {
-    ipf -> setPWT(m_priority_wt*fabs(alpha-_alpha_setpoint));
+    ipf -> setPWT(m_priority_wt*fabs(alpha-_alpha_setpoint) + _min_weight);
   }
   
   return(ipf);
