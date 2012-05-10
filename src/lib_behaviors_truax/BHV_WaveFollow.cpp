@@ -167,7 +167,7 @@ IvPFunction *BHV_WaveFollow::onRunState()
   ZAIC_PEAK head_zaic(m_domain, "course");
   head_zaic.setSummit(new_heading);
   head_zaic.setPeakWidth(0);
-  head_zaic.setBaseWidth(90.0);
+  head_zaic.setBaseWidth(180.0);
   head_zaic.setSummitDelta(0);
   head_zaic.setValueWrap(true);
 
@@ -196,7 +196,7 @@ IvPFunction *BHV_WaveFollow::onRunState()
   ipf = coupler.couple(head_ipf, spd_ipf, 50, 50);
 
   if (ipf) {
-    ipf -> setPWT(m_priority_wt*fabs(alpha));
+    ipf -> setPWT(m_priority_wt*fabs(alpha-_alpha_setpoint));
   }
   
   return(ipf);
