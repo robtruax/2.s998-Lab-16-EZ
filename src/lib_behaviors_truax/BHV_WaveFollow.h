@@ -47,6 +47,9 @@ protected: // Configuration parameters
   double _speed;
   double _alpha_setpoint;
 
+  bool _bangbang;
+  double _railmag;
+
 protected: // State variables
 
 };

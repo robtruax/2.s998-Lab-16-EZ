@@ -68,6 +68,8 @@ BHV_WaveFollow::BHV_WaveFollow(IvPDomain gdomain) :
   _Pd = 0.5;
   _speed = 1.0;
   _alpha_setpoint = 0;
+  _bangbang = false;
+  _railmag = 0.0;
 }
 
 //---------------------------------------------------------------
@@ -88,6 +90,15 @@ bool BHV_WaveFollow::setParam(string param, string val)
   }
   else if ((param == "alpha_setpoint") && isNumber(val)) {
     _alpha_setpoint = double_val;
+    return(true);
+  }
+  else if ((param == "bangbang") ) {
+    _bangbang = true;
+    return(true);
+  }
+  else if ( (param == "railmag") && isNumber(val) ) {
+    _railmag = double_val;
+    _alpha_setpoint = _railmag;
     return(true);
   }
 
@@ -151,6 +162,17 @@ IvPFunction *BHV_WaveFollow::onRunState()
   double alpha = ( (max_T - temp) / (max_T - min_T) * 2 ) - 1;
   postMessage("ALPHA_WAVEFOLLOW",alpha);
   // ranges from 1 to -1 with 0 on the front
+
+  // do bang bang controller
+  if (_bangbang) {
+    if (_alpha_setpoint > 0 && alpha > _alpha_setpoint) {
+      //bang
+      _alpha_setpoint = -_alpha_setpoint;
+    }
+    else if (_alpha_setpoint < 0 && alpha < _alpha_setpoint) {
+      _alpha_setpoint = -_alpha_setpoint;
+    }
+  }
 
   // get heading errror
   double error;
