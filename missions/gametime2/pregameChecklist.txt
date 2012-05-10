@@ -9,6 +9,8 @@
 
 3) put binary directiory in path
 
+   run "source runpregame"
+
 4) ???
 
 5) Profit!
