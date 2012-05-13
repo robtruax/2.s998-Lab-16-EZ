@@ -1,4 +1,6 @@
 
+0) run build.sh to make the lib files and binaries
+
 1) plug_uFldNodeBroker.moos:
 
    Set shore host ip accordingly

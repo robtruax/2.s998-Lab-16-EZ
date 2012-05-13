@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-WARP=1
+WARP=30
 HELP="no"
 JUST_BUILD="no"
 SIMULATE="no"

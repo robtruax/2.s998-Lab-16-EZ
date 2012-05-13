@@ -1,0 +1,9 @@
+//------------------------------------------------
+// pGenetic config block
+
+ProcessConfig = pGenetic
+{
+   AppTick   = 4
+   CommsTick = 4
+}
+

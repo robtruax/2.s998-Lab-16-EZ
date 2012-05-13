@@ -68,7 +68,7 @@ double CollectTempStats::getHotHeading2() {
     cold = cold2;
   }
 
-  cout << "hot:cold = " << hot.temp << ":" << cold.temp << endl;
+//  cout << "hot:cold = " << hot.temp << ":" << cold.temp << endl;
 
   double deg_heading = -1.0;
 
@@ -208,7 +208,6 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
     bool   mdbl  = msg.IsDouble();
     bool   mstr  = msg.IsString();
 #endif
-
     if (msg.GetKey() == "UCTD_MSMNT_REPORT") {
       // Process
       double x,y,temp,utctime;
@@ -268,6 +267,9 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
 	_last_underway_state = false;
       }
 
+    }
+    else if (msg.GetKey() == "PING_PONG") { 
+	cout << "pong pong pong pong" << endl;
     }
   }
 	
@@ -387,5 +389,6 @@ void CollectTempStats::RegisterVariables()
   m_Comms.Register("NAV_Y", 0);
   m_Comms.Register("SURVEY_UNDERWAY", 0);
   m_Comms.Register("FULL_STATE", 0);
+  m_Comms.Register("PING_PONG", 0);
 }
 

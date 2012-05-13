@@ -12,7 +12,7 @@ Processconfig = ANTLER
   Run = MOOSDB             @ NewConsole = false
   Run = pMOOSBridge        @ NewConsole = false ~ pMOOSBridge_%(VNAME)
   Run = uSimMarine         @ NewConsole = false
-  Run = pLogger            @ NewConsole = false
+//  Run = pLogger            @ NewConsole = false
   Run = pNodeReporter      @ NewConsole = false
   Run = pMarinePID         @ NewConsole = false
   Run = pHelmIvP           @ NewConsole = false
@@ -21,7 +21,7 @@ Processconfig = ANTLER
   Run = uFldNodeBroker     @ NewConsole = false
   Run = uFldMessageHandler @ NewConsole = false
   
-  Run = uTimerScript       @ NewConsole = true
+  Run = uTimerScript       @ NewConsole = false
   Run = pCollectTempStats  @ NewConsole = true
 //  Run = pFrontEstimate     @ NewConsole = true,XConfig=4
 
