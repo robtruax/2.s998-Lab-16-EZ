@@ -1,6 +1,6 @@
 ProcessConfig = pFrontEstimate
 {
-  AppTick    = 4
+  AppTick    = 75
   CommsTick  = 4
 
   vname = $(VNAME)
@@ -25,4 +25,5 @@ ProcessConfig = pFrontEstimate
   min_T_S = 20
   max_T_S = 30 
   concurrent = false
+  adaptive = true
 }
