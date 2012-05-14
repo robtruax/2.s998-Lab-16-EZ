@@ -258,6 +258,7 @@ bool CollectTempStats::OnNewMail(MOOSMSG_LIST &NewMail)
       if (msg.GetString() == "true" && _last_underway_state == false) {
 	// Reset stats for new run
 	clearMeasurements();
+	_lastTime = MOOSTime();
 	_otherIndex = 0;
       }
 
@@ -331,6 +332,12 @@ bool CollectTempStats::Iterate()
     _otherIndex++;
   }
 
+  if (_last_underway_state && _surveyTime > 0 
+      && MOOSTime() - _lastTime > _surveyTime) {
+    // We've reached the end.
+    m_Comms.Notify("RETURN","true");
+  }
+
   //  cout << "Measurement list sizes:" << _meas._meas.size() 
   //       << ", " << _otherMeas._meas.size() << endl;
 
@@ -347,6 +354,8 @@ bool CollectTempStats::OnStartUp()
   _last_underway_state = false;
   _otherIndex = 0;
   _vname = "LARRY_THE_CABLE_GUY";
+  _surveyTime = -1;
+  _lastTime = -1;
 
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
@@ -361,8 +370,8 @@ bool CollectTempStats::OnStartUp()
 	  this->_vname = value;
       }
 
-      if(param == "FOO") {
-        //handled
+      if(param == "SURVEYTIME") {
+        _surveyTime = atof(value.c_str());
       }
       else
  if(param == "BAR") {
