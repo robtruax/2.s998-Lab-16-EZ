@@ -54,6 +54,7 @@ Behavior = BHV_WaveFollow
   speed = 1.5
   bangbang = true
   railmag = 0.5
+  vehicle = $(VNAME)
 
 }
 

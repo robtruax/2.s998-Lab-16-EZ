@@ -4,5 +4,5 @@ ProcessConfig = pCollectTempStats
   CommsTick = 6
 
   vehiclename = $(VNAME)
-  surveytime = 100
+  surveytime = 1000
 }
