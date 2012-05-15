@@ -42,6 +42,7 @@ class CollectTempStats : public CMOOSApp
    bool runTester();
 
  private: // Configuration variables
+   double _surveyTime;
 
  private: // State variables
    unsigned int m_iterations;
@@ -50,6 +51,7 @@ class CollectTempStats : public CMOOSApp
    int _otherIndex; // next index in other_meas to publish
 
    bool _last_underway_state;
+   double _lastTime;
 
    MeasurementList _meas; // copy of ownship current full state
    MeasurementList _otherMeas; // copy of full state of other vehicle

@@ -31,8 +31,8 @@ killall = envoy.run('mykill')
 print 'killed all'
 
 # genetic will return when it has produced its results
-timeoutLow, timeoutHigh, timeoutStep = 1000, 2500, 250
-averages = 5
+timeoutLow, timeoutHigh, timeoutStep = 900, 1100, 20
+averages = 10
 
 i, totals = 0, len(range(timeoutLow, timeoutHigh, timeoutStep)) * averages
 

@@ -14,12 +14,13 @@ Processconfig = ANTLER
 
   Run = MOOSDB          @ NewConsole = false
   Run = pMOOSBridge     @ NewConsole = false
-//  Run = pMarineViewer   @ NewConsole = false
+//  Run = pMarineViewer   @ NewConsole = true
 //  Run = pLogger         @ NewConsole = false
   Run = pHostInfo       @ NewConsole = false
   Run = uFldShoreBroker @ NewConsole = false,XConfig=3
   Run = uFldNodeComms   @ NewConsole = false,XConfig=2
   Run = uFldCTDSensor  @ NewConsole = false,XConfig=1
+
   Run = pFrontGridRender  @ NewConsole = false,XConfig=4
   //Run = pGenetic 	@ NewConsole = false,XConfig=1
 

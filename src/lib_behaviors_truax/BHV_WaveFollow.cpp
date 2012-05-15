@@ -71,6 +71,7 @@ BHV_WaveFollow::BHV_WaveFollow(IvPDomain gdomain) :
   _bangbang = false;
   _railmag = 0.0;
   _min_weight = 25;
+  _vehicle = "LARRY";
 }
 
 //---------------------------------------------------------------
@@ -100,6 +101,10 @@ bool BHV_WaveFollow::setParam(string param, string val)
   else if ( (param == "railmag") && isNumber(val) ) {
     _railmag = double_val;
     _alpha_setpoint = _railmag;
+    return(true);
+  }
+  else if ( (param == "vehicle") ) {
+    _vehicle = val;
     return(true);
   }
 
@@ -141,6 +146,7 @@ IvPFunction *BHV_WaveFollow::onRunState()
   }
 
   double temp = -1;
+  string vname;
   // Process UCTD Message
   vector<string> inmsg = parseString(sensor_message, ",");
   for (int i = 0; i < inmsg.size(); i++) {
@@ -149,7 +155,15 @@ IvPFunction *BHV_WaveFollow::onRunState()
       if (items[0] == "temp") {
 	temp = atof(items[1].c_str());
       }
+      if (items[0] == "vname") {
+	vname = items[1];
+      }
     }
+  }
+
+  if (vname != _vehicle) {
+    // bad measurement, give bad temperature
+    temp = -1;
   }
 
   IvPFunction *ipf = 0;

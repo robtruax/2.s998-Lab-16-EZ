@@ -50,6 +50,7 @@ protected: // Configuration parameters
   bool _bangbang;
   double _railmag;
   double _min_weight;
+  std::string _vehicle;
 
 protected: // State variables
 
