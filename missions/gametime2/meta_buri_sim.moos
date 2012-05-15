@@ -21,8 +21,8 @@ Processconfig = ANTLER
   Run = uFldNodeBroker     @ NewConsole = false
   Run = uFldMessageHandler @ NewConsole = false
   
-  Run = uTimerScript       @ NewConsole = true
-  Run = pCollectTempStats  @ NewConsole = true
+  Run = uTimerScript       @ NewConsole = false
+  Run = pCollectTempStats  @ NewConsole = false
 //  Run = pFrontEstimate     @ NewConsole = true,XConfig=4
 
   4 = -geometry,80x10+20+950,-bg,purple,-fg,white

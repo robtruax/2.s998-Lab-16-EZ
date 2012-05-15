@@ -16,9 +16,9 @@ Processconfig = ANTLER
   Run = pMOOSBridge     @ NewConsole = false
   Run = pMarineViewer   @ NewConsole = true
   Run = pLogger         @ NewConsole = false
-  Run = pHostInfo       @ NewConsole = true
-  Run = uFldShoreBroker @ NewConsole = true,XConfig=3
-  Run = uFldNodeComms   @ NewConsole = true,XConfig=2
+  Run = pHostInfo       @ NewConsole = false
+  Run = uFldShoreBroker @ NewConsole = false,XConfig=3
+  Run = uFldNodeComms   @ NewConsole = false,XConfig=2
   
   Run = uFldCTDSensor  @ NewConsole = true,XConfig=1
   Run = pFrontGridRender  @ NewConsole = false,XConfig=4

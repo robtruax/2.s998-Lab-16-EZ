@@ -1,10 +1,10 @@
 ProcessConfig = pFrontEstimate
 {
-  AppTick    = 75
+  AppTick    = 10
   CommsTick  = 4
 
   vname = $(VNAME)
-  temperature_factor = 100
+  temperature_factor = 100000
   cooling_steps = 1000
   min_offset = -120
   max_offset = -60
