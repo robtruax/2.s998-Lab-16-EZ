@@ -306,7 +306,7 @@ bool CollectTempStats::OnConnectToServer()
 bool CollectTempStats::Iterate()
 {
   m_iterations++;
-  if (_meas.all().size() + _otherMeas.all().size() > 3 && m_iterations % 20 == 0) {
+  if (_meas.all().size() + _otherMeas.all().size() > 3 && m_iterations % 200 == 0) {
     m_Comms.Notify("HOT_HEADING", getHotHeading2());
     m_Comms.Notify("MAX_TEMP", _meas.getMaxTemp().temp);
     m_Comms.Notify("MIN_TEMP", _meas.getMinTemp().temp);
